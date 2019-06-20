@@ -35,7 +35,10 @@ titlecase: false # Transform title into titlecase
 external_link: true # Open external links in new tab
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+
+# 开启博客资源的相对链接 https://hexo.io/zh-cn/docs/asset-folders
+post_asset_folder: true
+
 relative_link: false
 future: true
 highlight:
