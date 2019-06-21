@@ -108,14 +108,15 @@
 </ul>
 <h2 id="OpenGl的建模和渲染过程"><a href="#OpenGl的建模和渲染过程" class="headerlink" title="OpenGl的建模和渲染过程"></a>OpenGl的建模和渲染过程</h2><p>OpenGL中vertex transformation：</p>
 <p><img src="20190619_meshview/vertex_render_process.png" alt="vertex_render_process"></p>
-<p>对应的计算过程：<br><img src="20190619_meshview/vertex_render_calculate.png" alt="vertex_render_calculate"></p>
+<p>对应的计算过程：</p>
+<p><img src="20190619_meshview/vertex_render_calculate.png" alt="vertex_render_calculate"></p>
 <p>通常来讲，通过OpenGL开放的接口，实现3D效果（不考虑着色），需要提供：</p>
 <ul>
 <li>local space建模数据：即vertex array in local space</li>
 <li>MVP matrix：Model matrix, View matrix, Project matrix</li>
 <li>视窗：即viewport</li>
 </ul>
-<h1 id="三、Github工程-amp-简介"><a href="#三、Github工程-amp-简介" class="headerlink" title="三、Github工程 &amp; 简介"></a>三、Github工程 &amp; 简介</h1><p><strong>工程地址</strong><br><a href="https://github.com/hanxiatu-fc/MeshView" target="_blank" rel="noopener">https://github.com/hanxiatu-fc/MeshView</a></p>
+<h1 id="0x3、Github工程-amp-简介"><a href="#0x3、Github工程-amp-简介" class="headerlink" title="0x3、Github工程 &amp; 简介"></a>0x3、Github工程 &amp; 简介</h1><p><strong>工程地址</strong><br><a href="https://github.com/hanxiatu-fc/MeshView" target="_blank" rel="noopener">https://github.com/hanxiatu-fc/MeshView</a></p>
 <p><strong>简介</strong></p>
 <table>
 <thead>
@@ -126,7 +127,7 @@
 </thead>
 <tbody><tr>
 <td>viewport</td>
-<td>android.opengl.GLES.viewport</td>
+<td>android.opengl.GLES20.glviewport</td>
 </tr>
 <tr>
 <td>ortho</td>
@@ -145,7 +146,7 @@
 <td>android.opengl.Matrix.setLookAtM</td>
 </tr>
 </tbody></table>
-<h1 id="四、遗留问题"><a href="#四、遗留问题" class="headerlink" title="四、遗留问题"></a>四、遗留问题</h1><ul>
+<h1 id="0x4、遗留问题"><a href="#0x4、遗留问题" class="headerlink" title="0x4、遗留问题"></a>0x4、遗留问题</h1><ul>
 <li><p>目前只是简单的模拟了OpenGL背后的渲染流程，一些高级特性不具备。例如利用深度信息判断点的前后关系并裁剪的能力不具备。这样就要求使用者精确建模，避免出现有不同深度信息的点，否者绘制顺序无法保证最前面的点被后绘制（看到的现象就是物体背后的信息发生了穿透）</p>
 <p>例如下图中，右边的示例底部发生了穿透现象。</p>
 </li>
@@ -158,7 +159,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/19/20190619_meshview/" data-id="cjx5fmjtp0000usu4sxed0uee" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/19/20190619_meshview/" data-id="cjx5fvo0z00010cu45xxy3kat" class="article-share-link">Share</a>
       
       
     </footer>
@@ -197,7 +198,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/18/20190618_test/" data-id="cjx5fmjtw0001usu4f3d98vi4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/18/20190618_test/" data-id="cjx5fvo0r00000cu4erxbyk8u" class="article-share-link">Share</a>
       
       
     </footer>
