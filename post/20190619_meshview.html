@@ -19,9 +19,11 @@
 <meta property="og:image" content="https://hanxiatu.com/post/20190619_meshview/mesh_example.png">
 <meta property="og:image" content="https://hanxiatu.com/post/20190619_meshview/vertex_render_process.png">
 <meta property="og:image" content="https://hanxiatu.com/post/20190619_meshview/vertex_render_calculate.png">
+<meta property="og:image" content="https://hanxiatu.com/post/20190619_meshview/gl_render_outline.png">
+<meta property="og:image" content="https://hanxiatu.com/post/20190619_meshview/meshview_render_outline.png">
 <meta property="og:image" content="https://hanxiatu.com/post/20190619_meshview/calendar_3d_ok.png">
 <meta property="og:image" content="https://hanxiatu.com/post/20190619_meshview/calendar_3d_error.png">
-<meta property="og:updated_time" content="2019-06-21T02:12:23.784Z">
+<meta property="og:updated_time" content="2019-06-22T15:57:38.814Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MeshView">
 <meta name="twitter:description" content="\[android\] use drawBitmapMesh to get 3D effect">
@@ -126,37 +128,58 @@
 <li>MVP matrix：Model matrix, View matrix, Project matrix</li>
 <li>视窗：即viewport</li>
 </ul>
-<h1 id="0x3、Github工程-amp-简介"><a href="#0x3、Github工程-amp-简介" class="headerlink" title="0x3、Github工程 &amp; 简介"></a>0x3、Github工程 &amp; 简介</h1><p><strong>工程地址</strong></p>
-<p><a href="https://github.com/hanxiatu-fc/MeshView" target="_blank" rel="noopener">https://github.com/hanxiatu-fc/MeshView</a></p>
-<p><strong>简介</strong></p>
+<h1 id="0x3、工程实践简介"><a href="#0x3、工程实践简介" class="headerlink" title="0x3、工程实践简介"></a>0x3、工程实践简介</h1><p><strong>OpenGL流程和MeshiView实践对比</strong></p>
+<ol>
+<li>OpengGL的流程<br><img src="20190619_meshview/gl_render_outline.png" alt="gl_render_outline"><br>可以看到在android的OpenGL开发过程中，数据的处理过程是黑盒的（即Not visible to developer），开发人员只需要传入这个几方面的数据：</li>
+</ol>
+<ul>
+<li>Vertex Model ： Local space 对3D物体建模之后的顶点数据 &amp; modle matrix</li>
+<li>viewport ：通过GLES.glviewport设置</li>
+<li>view matrix: 通过Matrix - GLES20系列接口传递(setLookAtM)</li>
+<li>projection matrix: 通过Matrix - GLES20系列接口传递(orthoM、frustumM、perspectiveM)</li>
+</ul>
+<ol start="2">
+<li>MeshView实践<br><img src="20190619_meshview/meshview_render_outline.png" alt="meshview_render_outline"><br>因为Mesh并不走传统的android的OpenGL的流程，所以GLES20的接口都不会被使用，所以需要做如下工作</li>
+</ol>
+<ul>
+<li>Vertex Model：同OpenGL</li>
+<li>viewport、setLookAt、ortho、frustum、perspective 等接口</li>
+<li>使用内部私有方法@Method:mesh实现 vertex * MVP（其实在OpenGL中一般实在vertex shader中实现，可以灵活实现，但基本上就是vertex * MVP）</li>
+<li>将准备好的verts传递给Canvas.drawBitmapMesh处理</li>
+</ul>
+<p><strong>模拟接口对比</strong></p>
 <table>
 <thead>
 <tr>
-<th>MeshObject提供的接口</th>
+<th>提供的接口</th>
 <th>对应模拟的android系统接口</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>viewport</td>
+<td>MeshObject.viewport</td>
 <td>android.opengl.GLES20.glviewport</td>
 </tr>
 <tr>
-<td>ortho</td>
+<td>MeshObject.ortho</td>
 <td>android.opengl.Matrix.orthoM</td>
 </tr>
 <tr>
-<td>frustum</td>
+<td>MeshObject.frustum</td>
 <td>android.opengl.Matrix.frustumM</td>
 </tr>
 <tr>
-<td>perspective</td>
+<td>MeshObject.perspective</td>
 <td>android.opengl.Matrix.perspectiveM</td>
 </tr>
 <tr>
-<td>setLookAt</td>
+<td>MeshObject.setLookAt</td>
 <td>android.opengl.Matrix.setLookAtM</td>
 </tr>
 </tbody></table>
+<p><strong>核心计算方法</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">private Vec3 mesh(Vec4 vert, float[] mvpMatrix) &#123;</span><br><span class="line">    float[] from = new float[] &#123;vert.x, vert.y, vert.z, vert.w&#125;;</span><br><span class="line">    float[] to = new float[4];</span><br><span class="line">    Matrix.multiplyMV(to,0, mvpMatrix,0, from,0);</span><br><span class="line"></span><br><span class="line">    Vec4 clip = new Vec4(to[0], to[1], to[2], to[3]);</span><br><span class="line"></span><br><span class="line">    Vec4 ndc = new Vec4(clip.x/clip.w, clip.y/clip.w, clip.z/clip.w, 1.0f);</span><br><span class="line"></span><br><span class="line">    ViewPort viewPort = getViewPort();</span><br><span class="line">    float x = viewPort.x;</span><br><span class="line">    float y = viewPort.y;</span><br><span class="line">    float w = viewPort.w;</span><br><span class="line">    float h = viewPort.h;</span><br><span class="line">    float n = viewPort.n;</span><br><span class="line">    float f = viewPort.f;</span><br><span class="line"></span><br><span class="line">    float wx = w/2 * (ndc.x + 1) + x;</span><br><span class="line">    float wy = h/2 * (ndc.y + 1) + y;</span><br><span class="line">    float wz = (f - n)/2 * ndc.z + (f + n)/2;</span><br><span class="line"></span><br><span class="line">    return new Vec3(wx, wy, wz);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><em><code>注：抱歉，完整的工程因个人原因已从github删除。只保留如上最核心的函数。</code></em></p>
 <h1 id="0x4、遗留问题"><a href="#0x4、遗留问题" class="headerlink" title="0x4、遗留问题"></a>0x4、遗留问题</h1><ul>
 <li><p>目前只是简单的模拟了OpenGL背后的渲染流程，一些高级特性不具备。例如利用深度信息判断点的前后关系并裁剪的能力不具备。这样就要求使用者精确建模，避免出现有不同深度信息的点，否者绘制顺序无法保证最前面的点被后绘制（看到的现象就是物体背后的信息发生了穿透）</p>
 <p>例如下图中，右边的示例底部发生了穿透现象。</p>
@@ -170,7 +193,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hanxiatu.com/post/20190619_meshview.html" data-id="cjx5gto82000134u4c82x6vam" class="article-share-link">Share</a>
+      <a data-url="https://hanxiatu.com/post/20190619_meshview.html" data-id="cjx7pj62o000144u4qhkk6rns" class="article-share-link">Share</a>
       
       
     </footer>
