@@ -52,9 +52,9 @@ reward:
   wechat: wxp://f2f0Ti_imJaiPKxLF1-zDdS1ttG7snD59SWz
 
 related_links:
-- link: https://github.com/geektutu/hexo-theme-geektutu
+- link: https://github.com/hanxiatu-fc
   img: img/related_links/github.png
-- link: mailto:Hanxiatu<hanxiatu@gmail.com>?subject=From Hanxiatu's Blog
+- link: mailto:hanxiatu@gmail.com?subject=From Hanxiatu's Blog
   img: img/related_links/email.png
 
 ba_auto_push: true # Baidu 自动推送，以下均为可选配置
