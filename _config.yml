@@ -1,85 +1,64 @@
 # Hexo Configuration
 ## Docs: https://hexo.io/docs/configuration.html
-## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: HanXiaTu
-subtitle:
-description:
-keywords:
-author: hanxiatu
-language:
-timezone:
+title: 寒夏汢
+keyword: 寒夏汢,寒夏汢的博客,寒夏汢的小站
+description: 寒夏汢的小站，致力于分享一些技术教程和有趣的技术实践。
+author: 寒夏汢
+language: zh-CN
 
-# URL
-## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://hanxiatu.com	
+url: https://hanxiatu.com
 root: /
 permalink: post/:title.html
 
-# Directory
-source_dir: source
-public_dir: public
-tag_dir: tags
-archive_dir: archives
-category_dir: categories
-code_dir: downloads/code
-i18n_dir: :lang
-skip_render:
-
-# Writing
-new_post_name: :title.md # File name of new posts
-default_layout: post
-titlecase: false # Transform title into titlecase
-external_link: true # Open external links in new tab
-filename_case: 0
-render_drafts: false
+# seo优化各个浏览器的验证信息
+beian: 
+seo_title: 寒夏汢 # 子页面的后缀，效果： 关于我 | 寒夏汢，如果与title一致，则可以不设置
+seo:
+  google_site_verification: 19ixTFj-X-rXuvZFvR1PMkqSHMXZ5GjN7nhYdYYFm-c
+  baidu_site_verification: p7Pz3jlx4t
+  ms_site_verification: 7E2AEE3378AC93764DEAB411177A21A1
+  _360_site_verification: 5c7e8a1fdbf35ed6003c48733208f705 # 不能以数字开头，所以加上了下划线
 
 # 开启博客资源的相对链接 https://hexo.io/zh-cn/docs/asset-folders
 post_asset_folder: true
 
-relative_link: false
-future: true
-highlight:
-  enable: true
-  line_number: true
-  auto_detect: false
-  tab_replace:
-  
-# Home page setting
-# path: Root path for your blogs index page. (default = '')
-# per_page: Posts displayed per page. (0 = disable pagination)
-# order_by: Posts order. (Order by date descending by default)
-index_generator:
-  path: ''
-  per_page: 10
-  order_by: -date
-  
-# Category & Tag
-default_category: uncategorized
-category_map:
-tag_map:
+# Site settings
+header_img: img/bg.jpg
+header_icon: img/icon.jpg
 
-# Date / Time format
-## Hexo uses Moment.js to parse and display date
-## You can customize the date format as defined in
-## http://momentjs.com/docs/#/displaying/format/
-date_format: YYYY-MM-DD
-time_format: HH:mm:ss
+github_username: hanxiatu-fc
 
-# Pagination
-## Set per_page to 0 to disable pagination
-per_page: 10
-pagination_dir: page
-
-# Extensions
-## Plugins: https://hexo.io/plugins/
-## Themes: https://hexo.io/themes/
-theme: landscape
+theme: geektutu
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: git   
-  repo: https://github.com/hanxiatu-fc/hanxiatu-fc.github.io.git
+  type: git
+  repository: https://github.com/hanxiatu-fc/hanxiatu-fc.github.io.git
   branch: master
+
+gitalk:
+  client_id: 'c1fdd456a4caae5f7df0'
+  client_secret: 'b2674451e21feae50520f99337ec15d2aebe7879'
+  repo: 'hexo-theme-geektutu'
+  owner: 'geektutu'
+
+# alipay wechatpay 的二维码转换的网址，不使用二维码图片，提高加载速率。
+# https://cli.im/deqr 可将二维码转为网址
+reward:
+  alipay: https://qr.alipay.com/fkx08108fho2pxknz5kyu48
+  wechat: wxp://f2f0Ti_imJaiPKxLF1-zDdS1ttG7snD59SWz
+
+related_links:
+- link: https://github.com/geektutu/hexo-theme-geektutu
+  img: img/related_links/github.png
+- link: mailto:Hanxiatu<hanxiatu@gmail.com>?subject=From Hanxiatu's Blog
+  img: img/related_links/email.png
+
+ba_auto_push: true # Baidu 自动推送，以下均为可选配置
+ba_track_id: 1a0ec33b1aa # Baidu Analytics
+cnzz_track_id: 123649 # CNZZ Analytics
+#google_analysis: UA-141425-1 # Google Analytics
+#google_ad_client: ca-pub-939225546 # Google Ad
