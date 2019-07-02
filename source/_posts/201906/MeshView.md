@@ -1,7 +1,14 @@
 ---
 title: MeshView
-date: 2019-06-19
+date: 2019-06-19 21:11:00
 description: \[android\] use drawBitmapMesh to get 3D effect 
+tags:
+- Android
+- OpengGL
+- Graphic
+categories:
+- Graphic
+image: post/201906/MeshView/face_guide.gif
 ---
 
 # 0x0、必备知识
@@ -16,13 +23,13 @@ description: \[android\] use drawBitmapMesh to get 3D effect
     
   **示例**  
 
-![face_guide](20190619_meshview/face_guide.gif) ![num_picker](20190619_meshview/num_picker.gif)
+![face_guide](MeshView/face_guide.gif) ![num_picker](MeshView/num_picker.gif)
 
     
 # 0x2、原理介绍
 
 ## Mesh原理
-![mesh](20190619_meshview/mesh_example.png)
+![mesh](MeshView/mesh_example.png)
 
 ## Canvas.drawBitmapMesh
 
@@ -72,11 +79,11 @@ public void drawBitmapMesh(@NonNull Bitmap bitmap, int meshWidth, int meshHeight
 
 OpenGL中vertex transformation：
 
-![vertex_render_process](20190619_meshview/vertex_render_process.png)
+![vertex_render_process](MeshView/vertex_render_process.png)
 
 对应的计算过程：
 
-![vertex_render_calculate](20190619_meshview/vertex_render_calculate.png)
+![vertex_render_calculate](MeshView/vertex_render_calculate.png)
 
 通常来讲，通过OpenGL开放的接口，实现3D效果（不考虑着色），需要提供：
 - local space建模数据：即vertex array in local space
@@ -88,7 +95,7 @@ OpenGL中vertex transformation：
 **OpenGL流程和MeshiView实践对比**
 
 1. OpengGL的流程
-![gl_render_outline](20190619_meshview/gl_render_outline.png)
+![gl_render_outline](MeshView/gl_render_outline.png)
 可以看到在android的OpenGL开发过程中，数据的处理过程是黑盒的（即Not visible to developer），开发人员只需要传入这个几方面的数据：
 - Vertex Model ： Local space 对3D物体建模之后的顶点数据 & modle matrix
 - viewport ：通过GLES.glviewport设置
@@ -96,7 +103,7 @@ OpenGL中vertex transformation：
 - projection matrix: 通过Matrix - GLES20系列接口传递(orthoM、frustumM、perspectiveM)
 
 2. MeshView实践
-![meshview_render_outline](20190619_meshview/meshview_render_outline.png)
+![meshview_render_outline](MeshView/meshview_render_outline.png)
 因为Mesh并不走传统的android的OpenGL的流程，所以GLES20的接口都不会被使用，所以需要做如下工作
 - Vertex Model：同OpenGL
 - viewport、setLookAt、ortho、frustum、perspective 等接口
@@ -148,6 +155,6 @@ OpenGL中vertex transformation：
 
   例如下图中，右边的示例底部发生了穿透现象。
 
-![ok](20190619_meshview/calendar_3d_ok.png)   ![error](20190619_meshview/calendar_3d_error.png)
+![ok](MeshView/calendar_3d_ok.png)   ![error](MeshView/calendar_3d_error.png)
 
 - 目前本篇博客细节介绍的并不详细，待完善

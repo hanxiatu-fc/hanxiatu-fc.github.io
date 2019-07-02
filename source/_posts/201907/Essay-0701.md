@@ -1,7 +1,12 @@
 ---
 title: 做一个有趣的人
-date: 2019-07-01
-description: 思考 
+date: 2019-07-01 23:13:24
+description: 思考
+tags:
+- 随笔
+categories:
+- 随笔
+image: img/essay.jpg
 ---
 
 在这里不是想讨论如何做一个有趣的人的方法论，就是谈谈近期的一些感悟。
@@ -21,7 +26,7 @@ description: 思考
   https://geektutu.com/post/blog-experience-1.html 系列
 - 有深度的专题《TensorFlow入门》
   https://geektutu.com/post/tensorflow-mnist-simplest.html 系列
-  ![TensorFlow入门](20190701_essay/tensorflow2.0-dj.png)
+  ![TensorFlow入门](Essay-0701/tensorflow2.0-dj.png)
 
 在这些背后他其实付出了很多的观察，思考和努力。有时候会‘爆肝’赶文章，每一篇技术文章都是精心制作，而一些感悟的文章又是非常独具思考。
 
