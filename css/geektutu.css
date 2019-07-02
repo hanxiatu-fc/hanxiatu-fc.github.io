@@ -1,0 +1,30 @@
+body {
+  font-family: "-apple-system","Open Sans","HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.text-center {
+  text-align: center !important;
+}
+.text-left {
+  text-align: left !important;
+}
+.text-right {
+  text-align: right !important;
+}
+
+.float-left {
+  float: left !important;
+}
+.float-right {
+  float: right !important;
+}
+
+.no-text-decoration {
+  text-decoration: none !important;
+}
+
+.padding-0 {
+    padding: 0 !important;
+}
+.hide {
+  display: none !important;
+}

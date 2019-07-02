@@ -1,346 +1,711 @@
 <!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
+  <meta name="baidu-site-verification" content="p7Pz3jlx4t">
+  <meta name="google-site-verification" content="19ixTFj-X-rXuvZFvR1PMkqSHMXZ5GjN7nhYdYYFm-c">
+  <meta name="msvalidate.01" content="7E2AEE3378AC93764DEAB411177A21A1">
+  <meta name="360-site-verification" content="5c7e8a1fdbf35ed6003c48733208f705">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- if page has tags, then add tags to keyword -->
+  
+  
+  <meta name="keywords" content="寒夏汢,寒夏汢的博客,寒夏汢的小站,">
+  <!-- page.description has higher priority -->
+  <meta name="description" content="寒夏汢的小站，致力于分享一些技术教程和有趣的技术实践。">
+  <link rel="shortcut icon" href="/img/icon.jpg">
+  <title>
+    
+    寒夏汢
+    
+  </title>
 
+  <link rel="canonical" href="/">
+
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/geektutu.css">
+  <link rel="stylesheet" href="/css/markdown.css">
+
+  <!-- Pygments Highlight CSS -->
+  <link rel="stylesheet" href="/css/highlight.css">
+  <!-- <link rel="stylesheet" href="/css/toc.css"> -->
+  <!-- global function -->
+  <script>
+    window.globalAddScript = function (url, onload) {
+      var s = document.createElement('script');
+      s.src = url;
+      onload && (s.onload = onload);
+      document.body.appendChild(s);
+    }
+    window.globalAddCss = function (url) {
+      var s = document.createElement('link');
+      s.rel = 'stylesheet';
+      s.href = url;
+      document.body.appendChild(s);
+    }
+  </script>
+  <!-- google ad -->
   
-  <title>HanXiaTu</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="HanXiaTu">
-<meta property="og:url" content="https://hanxiatu.com/index.html">
-<meta property="og:site_name" content="HanXiaTu">
-<meta property="og:locale" content="default">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HanXiaTu">
-  
-    <link rel="alternate" href="/atom.xml" title="HanXiaTu" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
 </head>
-</html>
+
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">HanXiaTu</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://hanxiatu.com"></form>
-      </div>
-    </div>
-  </div>
+    <!-- Post Header -->
+<style type="text/css">
+    .geektutu-header {
+        height: 190px;
+        background: no-repeat center center;
+        font-size: 1.5em;
+        text-align: center;
+        background-image: url('/img/bg.jpg');
+        z-index: 2;
+        background-size: cover;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .header-nav li {
+        display: inline-block;
+        padding: 0 5px;
+        margin-bottom: 0;
+    }
+
+    .header-nav ul {
+        list-style: none;
+    }
+
+    .header-nav a {
+        text-decoration: none;
+        color: white;
+        font-size: 18px;
+        text-shadow: 0 1px #666;
+    }
+
+    .header-nav a:hover,
+    .header-nav a:focus {
+        color: #e6e6e6;
+    }
+
+    .header-icon {
+        border-radius: 50%;
+        height: 100px;
+        width: 100px;
+        margin: 10px auto;
+        background-image: url('/img/icon.jpg');
+        background-size: cover;
+    }
+
+    .header-name a {
+        color: white;
+        font-size: 24px;
+    }
+</style>
+
+<header class="geektutu-header">
+    <div className="col-xs-12 text-center">
+        <div class="header-icon"></div>
+        <p class="header-name"><a href="/" class="no-text-decoration">寒夏汢</a></p>
+        <nav class="header-nav">
+            <ul>
+                <li> <a href="/">主页</a></li>
+                <li><a href="/series">专题</a></li>
+                <li><a href="/archives">归档</a></li>
+                <li><a href="/post/link.html">友链</a></li>
+                <li><a href="/post/about.html">留言</a></li>
+            </ul>
+        </nav>
 </header>
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-20190701_essay" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/post/20190701_essay.html" class="article-date">
-  <time datetime="2019-06-30T16:00:00.000Z" itemprop="datePublished">2019-07-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/post/20190701_essay.html">做一个有趣的人</a>
-    </h1>
-  
+    <!-- Main Content -->
+    <style>
+        body {
+            background-color: #f6f6f6;
+        }
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在这里不是想讨论如何做一个有趣的人的方法论，就是谈谈近期的一些感悟。</p>
-<p>文章的标题还可以是<code>做一个优秀的人</code>、<code>做一个有魅力的人</code>……诸如此类。为什么要选择有趣呢？大概是<code>有趣</code>这个词即可以让自己鼓噪起来，又显得气氛轻松。</p>
-<p>为什么想到想到这个话题呢？</p>
-<p>当你的身边有一些优秀的人的时候，是一件多么有趣的事！我是幸运的，在去年的7月，陆续和一些优秀的人聚到了一个团队中。有两个特别有趣的小伙伴我想在这里介绍一下（也是我做出本文思考的来源）：</p>
-<h2 id="geek"><a href="#geek" class="headerlink" title="geek"></a>geek</h2><p>有一个非常geek的小伙伴：年轻、有激情。最近他在玩博客（而我开始写个人博客，也是受其影响）。相比于我还是毛毛雨，他已经玩出了各种花样：</p>
-<ul>
-<li>自定义的主题 –&gt; 极致的加载速度<br><a href="https://github.com/geektutu/hexo-theme-geektutu" target="_blank" rel="noopener">https://github.com/geektutu/hexo-theme-geektutu</a></li>
-<li>独立的思考：看到问题，提出思考，给出解决<br><a href="https://geektutu.com/post/blog-experience-1.html" target="_blank" rel="noopener">https://geektutu.com/post/blog-experience-1.html</a> 系列</li>
-<li>有深度的专题《TensorFlow入门》<br><a href="https://geektutu.com/post/tensorflow-mnist-simplest.html" target="_blank" rel="noopener">https://geektutu.com/post/tensorflow-mnist-simplest.html</a> 系列<br><img src="20190701_essay/tensorflow2.0-dj.png" alt="TensorFlow入门"></li>
-</ul>
-<p>在这些背后他其实付出了很多的观察，思考和努力。有时候会‘爆肝’赶文章，每一篇技术文章都是精心制作，而一些感悟的文章又是非常独具思考。</p>
-<h2 id="文艺"><a href="#文艺" class="headerlink" title="文艺"></a>文艺</h2><p>另外一个小伙伴则是一个非常文艺的诗人（今天才知道他写诗，就这么叫吧）。本来只知道他读书很多，理智、细腻、有文艺范儿。</p>
-<p>今天有幸拜读了他的博客 <a href="http://hutusi.com/" target="_blank" rel="noopener">http://hutusi.com/</a> ，很多篇文章我都蛮喜欢的。</p>
-<ul>
-<li><a href="http://hutusi.com/blog/2015/06/21/paternity" target="_blank" rel="noopener">陪产记</a> 写的很细腻，很多描写犹如在眼前，我最先读的一篇文章。</li>
-<li><a href="http://hutusi.com/blog/2010/08/22/shakespeare" target="_blank" rel="noopener">四月莎士比亚</a> 标题很诗意，每篇的点评也很有趣。很羡慕可以静心读书的人。</li>
-<li><a href="http://hutusi.com/blog/2007/04/11/wangxiaobo" target="_blank" rel="noopener">一只特立独行的猪</a> 哈哈，这篇颇有王小波的幽默感。<br><em>同样王小波也不会喜欢众多无聊的人对自己的裸体指指点点吧。他可能会这么幽默的跟塑像作者说：你丫也没见过我啥模样，这尺寸标准么？这样多少有些轻薄，我更愿意他这么说：你总不能让我一年四季都光着身子吧。</em><br><em>这中间有你的亲人，有你的粉丝，还有一大群不着边际吃饱了饭寻求刺激的人，他们说：小波的裸体我不乐意看，要看就看大波。</em></li>
-<li><a href="http://hutusi.com/blog/2007/03/04/dream" target="_blank" rel="noopener">爱美丽、黑暗王子和豌豆公主</a> 奇怪的梦，有趣的连接，美丽的兴趣</li>
-<li><a href="http://hutusi.com/blog/2007/02/27/yantai" target="_blank" rel="noopener">诗歌与烟台</a> </li>
-<li>……</li>
-</ul>
-<p>哦，对了。他的博客很久没有更新，他自己也打算重新拎起来，作为follower，可以去催更了。</p>
-<h2 id="一点思考"><a href="#一点思考" class="headerlink" title="一点思考"></a>一点思考</h2><p>看到别人有趣而精彩的人生，不免有些羡慕。我看到的是无论geek和文艺，这背后都有他们长期以往的坚持以及为此付出的时间。</p>
-<p>而我的时间哪里去了呢？</p>
-<p>回想过往，我的时间在这里</p>
-<ul>
-<li>学习和工作</li>
-<li>足球</li>
-<li>微博 + 其他信息流</li>
-<li>一些漫无目的的事</li>
-</ul>
-<p>学习和工作不在这里讨论。足球上花的时间总是值得的。</p>
-<p>微博应该减少，作为获取足球信息和一些基本新闻的渠道可以，但是不要总是去反复刷。</p>
-<p>其实过往一些零碎的时间利用的不是很好，很多都淹没在一些无意思的信息流产品上，今后多花点时间写博客，多读书。</p>
-<p>就像文艺的诗人所说，读书可以给自己提供<code>素材</code>，只要多读，这些东西就会印在脑海里，写作可以锻炼思维，触发思考。</p>
-<p>不知道是不是这样就会成为一个有趣的人，也许，跑题了。</p>
-<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>为什么写这篇博文，一是有了点小感悟。觉得写下来也无妨，而是在朋友的影响下，确实想好好写一些博客，一方面对自己的学习和感悟做记录，另一方面也许可以对互联网世界贡献一些自己的知识。</p>
-<p>可以写下来，发现博客真的很，尤其以技术博文为主的话。第一篇技术博客文章+工程花费了一个多星期。后面的博文迟迟也没有想好写什么，没有那位geek小伙伴的极大的热情，也没有他肚子里装满的干货。但不管怎样，先写一篇感悟‘滥竽充数’，后面的文章要加油了！！！</p>
+        .main-container {
+            margin-right: auto;
+            margin-left: auto;
+            margin-top: 10px;
+            padding-top: 30px;
+            padding-bottom: 30px;
+            background-color: white;
 
-      
+        }
+
+        .post-list {
+            line-height: 2.8em;
+            border-left: 4px solid #f9f9f9;
+        }
+
+        @media (min-width: 768px) {
+            .main-container {
+                width: 750px;
+            }
+
+            .post-list {
+                margin-left: 30px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .main-container {
+                width: 990px;
+            }
+        }
+
+        .post-list ul {
+            padding-left: 0 !important;
+        }
+
+        .post-list li {
+            list-style-type: none;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .post-list a {
+            text-decoration: none;
+        }
+
+        .post-list li:before {
+            position: absolute;
+            top: 50%;
+            left: -2px;
+            width: 10px;
+            height: 10px;
+            margin-top: -9px;
+            margin-left: -5px;
+            content: ' ';
+            border-radius: 50%;
+            background-color: #ddd;
+        }
+
+        .post-list .post-item-parent {
+            margin-top: 20px;
+        }
+
+        .post-list a {
+            color: #000000;
+        }
+
+        .post-item-color-0:before {
+            background: #1abc9c !important;
+        }
+
+        .post-item-color-1:before {
+            background: #3498db !important;
+        }
+
+        .post-item-color-2:before {
+            background: #9b59b6 !important;
+        }
+
+        .post-item-color-3:before {
+            background: #e67e22 !important;
+        }
+
+        .post-item-color-4:before {
+            background: #e74c3c !important;
+        }
+
+        .post-list .post-text-parent {
+            font-size: 20px;
+            font-weight: bold;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .post-list .post-item-title {
+            font-size: 16px;
+            transition-duration: .5s;
+            color: #333;
+            vertical-align: middle;
+            overflow: hidden;
+        }
+
+        .post-list .post-item-title:hover {
+            color: #108ee9;
+        }
+
+        .post-list .post-item-date {
+            margin-left: 2px;
+            color: hsla(0, 0%, 71%, .9);
+            font-size: .85em;
+        }
+    </style>
+    <div class="main-container markdown-it">
+        <!-- Main Content -->
+<style>
+    .post-preview {
+        width: 100%;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        height: max-content;
+    }
+
+    .post-preview .text-gray {
+        color: #999999 !important;
+    }
+
+    .post-preview .post-info {
+        flex: 1;
+        padding-left: 20px;
+    }
+
+    .post-preview .post-img {
+        width: 100px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .post-preview .post-info-center {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .post-preview .post-info a {
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .post-preview .post-info .title {
+        color: #101010;
+        font-size: 1.2em;
+    }
+
+    @media (min-width: 768px) {
+        .post-preview .post-img {
+            width: 120px;
+        }
+
+        .post-preview .post-info {
+            padding-right: 30px;
+        }
+    }
+
+    #sidebar {
+        width: 300px;
+        position: static;
+        float: left;
+    }
+
+    .sidebar-wrapper {
+        width: 320px;
+        padding-right: 0;
+        padding-left: 10px;
+        border-left: 1px solid #eaecef;
+    }
+
+    .sidebar-wrapper section {
+        margin-bottom: 10px;
+    }
+
+    .sidebar-fixed {
+        position: fixed;
+        top: 10px;
+        margin-top: 0;
+        max-height: 81%;
+        z-index: 1;
+    }
+</style>
+<main class="col-xs-12">
+    <!-- Post Container -->
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+        <!-- Main Content -->
+<!-- css page.ejs -->
+
+<div class="post-preview">
+    <div class="post-img" style="background-image: url('/undefined')"></div>
+    <div class="post-info">
+        <div class="post-info-center">
+            <div class="hidden-xs">
+                
+            </div>
+            <a href="/post/20190701_essay.html" class="title">
+                做一个有趣的人
+            </a>
+            <p class="text-gray">
+                <small>
+                    <span>发表于2019-07-01，</span>
+                    <span class="hidden-xs">全文1990字，</span>
+                    <span>阅读约3分钟</span>
+                </small>
+            </p>
+        </div>
     </div>
-    <footer class="article-footer">
-      <a data-url="https://hanxiatu.com/post/20190701_essay.html" data-id="cjxkirszg0001ycu4644ck2h2" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
+</div>
 
-
-  
-    <article id="post-20190619_meshview" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/post/20190619_meshview.html" class="article-date">
-  <time datetime="2019-06-18T16:00:00.000Z" itemprop="datePublished">2019-06-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/post/20190619_meshview.html">MeshView</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="0x0、必备知识"><a href="#0x0、必备知识" class="headerlink" title="0x0、必备知识"></a>0x0、必备知识</h1><p>  阅读本文之前，读者最好具备一定的OpenGL的开发背景，并了解OpenGL渲染流程。学习资源可以参考：</p>
-<ul>
-<li><a href="https://learnopengl.com/" target="_blank" rel="noopener">Learn OpenGL</a></li>
-<li><a href="http://www.songho.ca/opengl/index.html" target="_blank" rel="noopener">OpenGL - Song Ho Ahn</a></li>
-</ul>
-<h1 id="0x1、背景介绍"><a href="#0x1、背景介绍" class="headerlink" title="0x1、背景介绍"></a>0x1、背景介绍</h1><p>  在项目开发中，经常需要开发一些炫酷的3D效果。在Android系统上，通常来说可以通过系统提供的OpenGL的java接口来实现（如GLES20.java）。android系统并提供了GLSurfaceView等一套框架机制，直接帮助开发者将gl环境准备好，开发者剩下的工作就是建立模型（model）、设计着色算法（shader）。但是GLSurfaceView整套机制相对来说还是比较重型（独立的gl渲染线程），功耗也比较大。然而有这么一些非常简单的3D特效，直接嵌入在用户交互界面里，对功耗的要求尽量要低，这个时候采用GLSrufaceView那套机制并不合适。</p>
-<p>  经过一些调研，发现android原生的接口Canvas.drawBitmapMesh提供的能力可以帮助实现在任意view上的3D效果。本文介绍的内容就是：如果将OpengGL中建模以及渲染流程的知识和接口Canvas.drawBitmapMesh结合起来，并开发一个小的“渲染引擎”，将这种能力基线化。</p>
-<p>  <strong>示例</strong>  </p>
-<p><img src="20190619_meshview/face_guide.gif" alt="face_guide"> <img src="20190619_meshview/num_picker.gif" alt="num_picker"></p>
-<h1 id="0x2、原理介绍"><a href="#0x2、原理介绍" class="headerlink" title="0x2、原理介绍"></a>0x2、原理介绍</h1><h2 id="Mesh原理"><a href="#Mesh原理" class="headerlink" title="Mesh原理"></a>Mesh原理</h2><p><img src="20190619_meshview/mesh_example.png" alt="mesh"></p>
-<h2 id="Canvas-drawBitmapMesh"><a href="#Canvas-drawBitmapMesh" class="headerlink" title="Canvas.drawBitmapMesh"></a>Canvas.drawBitmapMesh</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"> /**</span><br><span class="line"> * Draw the bitmap through the mesh, where mesh vertices are evenly distributed across the</span><br><span class="line"> * bitmap. There are meshWidth+1 vertices across, and meshHeight+1 vertices down. The verts</span><br><span class="line"> * array is accessed in row-major order, so that the first meshWidth+1 vertices are distributed</span><br><span class="line"> * across the top of the bitmap from left to right. A more general version of this method is</span><br><span class="line"> * drawVertices().</span><br><span class="line"> *</span><br><span class="line"> * Prior to API level &#123;@value Build.VERSION_CODES#P&#125; vertOffset and colorOffset were ignored,</span><br><span class="line"> * effectively treating them as zeros. In API level &#123;@value Build.VERSION_CODES#P&#125; and above</span><br><span class="line"> * these parameters will be respected.</span><br><span class="line"> *</span><br><span class="line"> * @param bitmap The bitmap to draw using the mesh</span><br><span class="line"> * @param meshWidth The number of columns in the mesh. Nothing is drawn if this is 0</span><br><span class="line"> * @param meshHeight The number of rows in the mesh. Nothing is drawn if this is 0</span><br><span class="line"> * @param verts Array of x,y pairs, specifying where the mesh should be drawn. There must be at</span><br><span class="line"> *            least (meshWidth+1) * (meshHeight+1) * 2 + vertOffset values in the array</span><br><span class="line"> * @param vertOffset Number of verts elements to skip before drawing</span><br><span class="line"> * @param colors May be null. Specifies a color at each vertex, which is interpolated across the</span><br><span class="line"> *            cell, and whose values are multiplied by the corresponding bitmap colors. If not</span><br><span class="line"> *            null, there must be at least (meshWidth+1) * (meshHeight+1) + colorOffset values</span><br><span class="line"> *            in the array.</span><br><span class="line"> * @param colorOffset Number of color elements to skip before drawing</span><br><span class="line"> * @param paint May be null. The paint used to draw the bitmap</span><br><span class="line"> */</span><br><span class="line">public void drawBitmapMesh(@NonNull Bitmap bitmap, int meshWidth, int meshHeight,</span><br><span class="line">        @NonNull float[] verts, int vertOffset, @Nullable int[] colors, int colorOffset,</span><br><span class="line">        @Nullable Paint paint) &#123;</span><br><span class="line">    super.drawBitmapMesh(bitmap, meshWidth, meshHeight, verts, vertOffset, colors, colorOffset,</span><br><span class="line">            paint);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>bitmap</code>：类似于gl中的texture</li>
-<li><code>meshWidth</code>：网格纵切的数目</li>
-<li><code>meshHeight</code>：网格横切的数目</li>
-<li><code>verts</code>：类似于gl中的vertex array</li>
-<li><code>vertOffset</code></li>
-<li><code>colors</code>：可用来模拟mask（未demo测试）</li>
-<li><code>colorOffset</code></li>
-<li><code>paint</code></li>
-</ul>
-<h2 id="OpenGl的建模和渲染过程"><a href="#OpenGl的建模和渲染过程" class="headerlink" title="OpenGl的建模和渲染过程"></a>OpenGl的建模和渲染过程</h2><p>OpenGL中vertex transformation：</p>
-<p><img src="20190619_meshview/vertex_render_process.png" alt="vertex_render_process"></p>
-<p>对应的计算过程：</p>
-<p><img src="20190619_meshview/vertex_render_calculate.png" alt="vertex_render_calculate"></p>
-<p>通常来讲，通过OpenGL开放的接口，实现3D效果（不考虑着色），需要提供：</p>
-<ul>
-<li>local space建模数据：即vertex array in local space</li>
-<li>MVP matrix：Model matrix, View matrix, Project matrix</li>
-<li>视窗：即viewport</li>
-</ul>
-<h1 id="0x3、工程实践简介"><a href="#0x3、工程实践简介" class="headerlink" title="0x3、工程实践简介"></a>0x3、工程实践简介</h1><p><strong>OpenGL流程和MeshiView实践对比</strong></p>
-<ol>
-<li>OpengGL的流程<br><img src="20190619_meshview/gl_render_outline.png" alt="gl_render_outline"><br>可以看到在android的OpenGL开发过程中，数据的处理过程是黑盒的（即Not visible to developer），开发人员只需要传入这个几方面的数据：</li>
-</ol>
-<ul>
-<li>Vertex Model ： Local space 对3D物体建模之后的顶点数据 &amp; modle matrix</li>
-<li>viewport ：通过GLES.glviewport设置</li>
-<li>view matrix: 通过Matrix - GLES20系列接口传递(setLookAtM)</li>
-<li>projection matrix: 通过Matrix - GLES20系列接口传递(orthoM、frustumM、perspectiveM)</li>
-</ul>
-<ol start="2">
-<li>MeshView实践<br><img src="20190619_meshview/meshview_render_outline.png" alt="meshview_render_outline"><br>因为Mesh并不走传统的android的OpenGL的流程，所以GLES20的接口都不会被使用，所以需要做如下工作</li>
-</ol>
-<ul>
-<li>Vertex Model：同OpenGL</li>
-<li>viewport、setLookAt、ortho、frustum、perspective 等接口</li>
-<li>使用内部私有方法@Method:mesh实现 vertex * MVP（其实在OpenGL中一般实在vertex shader中实现，可以灵活实现，但基本上就是vertex * MVP）</li>
-<li>将准备好的verts传递给Canvas.drawBitmapMesh处理</li>
-</ul>
-<p><strong>模拟接口对比</strong></p>
-<table>
-<thead>
-<tr>
-<th>提供的接口</th>
-<th>对应模拟的android系统接口</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>MeshObject.viewport</td>
-<td>android.opengl.GLES20.glviewport</td>
-</tr>
-<tr>
-<td>MeshObject.ortho</td>
-<td>android.opengl.Matrix.orthoM</td>
-</tr>
-<tr>
-<td>MeshObject.frustum</td>
-<td>android.opengl.Matrix.frustumM</td>
-</tr>
-<tr>
-<td>MeshObject.perspective</td>
-<td>android.opengl.Matrix.perspectiveM</td>
-</tr>
-<tr>
-<td>MeshObject.setLookAt</td>
-<td>android.opengl.Matrix.setLookAtM</td>
-</tr>
-</tbody></table>
-<p><strong>核心计算方法</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">private Vec3 mesh(Vec4 vert, float[] mvpMatrix) &#123;</span><br><span class="line">    float[] from = new float[] &#123;vert.x, vert.y, vert.z, vert.w&#125;;</span><br><span class="line">    float[] to = new float[4];</span><br><span class="line">    Matrix.multiplyMV(to,0, mvpMatrix,0, from,0);</span><br><span class="line"></span><br><span class="line">    Vec4 clip = new Vec4(to[0], to[1], to[2], to[3]);</span><br><span class="line"></span><br><span class="line">    Vec4 ndc = new Vec4(clip.x/clip.w, clip.y/clip.w, clip.z/clip.w, 1.0f);</span><br><span class="line"></span><br><span class="line">    ViewPort viewPort = getViewPort();</span><br><span class="line">    float x = viewPort.x;</span><br><span class="line">    float y = viewPort.y;</span><br><span class="line">    float w = viewPort.w;</span><br><span class="line">    float h = viewPort.h;</span><br><span class="line">    float n = viewPort.n;</span><br><span class="line">    float f = viewPort.f;</span><br><span class="line"></span><br><span class="line">    float wx = w/2 * (ndc.x + 1) + x;</span><br><span class="line">    float wy = h/2 * (ndc.y + 1) + y;</span><br><span class="line">    float wz = (f - n)/2 * ndc.z + (f + n)/2;</span><br><span class="line"></span><br><span class="line">    return new Vec3(wx, wy, wz);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><em><code>注：抱歉，完整的工程因个人原因已从github删除。只保留如上最核心的函数。</code></em></p>
-<h1 id="0x4、遗留问题"><a href="#0x4、遗留问题" class="headerlink" title="0x4、遗留问题"></a>0x4、遗留问题</h1><ul>
-<li><p>目前只是简单的模拟了OpenGL背后的渲染流程，一些高级特性不具备。例如利用深度信息判断点的前后关系并裁剪的能力不具备。这样就要求使用者精确建模，避免出现有不同深度信息的点，否者绘制顺序无法保证最前面的点被后绘制（看到的现象就是物体背后的信息发生了穿透）</p>
-<p>例如下图中，右边的示例底部发生了穿透现象。</p>
-</li>
-</ul>
-<p><img src="20190619_meshview/calendar_3d_ok.png" alt="ok">   <img src="20190619_meshview/calendar_3d_error.png" alt="error"></p>
-<ul>
-<li>目前本篇博客细节介绍的并不详细，待完善</li>
-</ul>
-
-      
+<div class="post-preview">
+    <div class="post-img" style="background-image: url('/undefined')"></div>
+    <div class="post-info">
+        <div class="post-info-center">
+            <div class="hidden-xs">
+                
+            </div>
+            <a href="/post/20190619_meshview.html" class="title">
+                MeshView
+            </a>
+            <p class="text-gray">
+                <small>
+                    <span>发表于2019-06-19，</span>
+                    <span class="hidden-xs">全文5600字，</span>
+                    <span>阅读约8分钟</span>
+                </small>
+            </p>
+        </div>
     </div>
-    <footer class="article-footer">
-      <a data-url="https://hanxiatu.com/post/20190619_meshview.html" data-id="cjxkirsz70000ycu4fjvokb9q" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
+</div>
 
 
-  
-
-
-</section>
+<div class="text-center">
+    <p>
         
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li></ul>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        
+    </p>
+</div>
     </div>
-  </div>
+    <aside id="sidebar" class="hidden-xs hidden-sm">
+        <div class="sidebar-wrapper col-xs-12">
+            
+            <section><style>
+    #summary {
+        font: 12px/1.6 "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color: #333333;
+        border: 1px solid #DDDDDD;
+        border-radius: 3px;
+        padding: 5px;
+        background: transparent;
+        display: block;
+        width: 250px;
+    }
 
 
-  
+    #summary nav {
+        overflow: hidden;
+    }
+
+    #summary nav a {
+        display: inline-block;
+        text-align: center;
+        color: #333;
+        font-size: 12px;
+    }
+
+    #summary nav span {
+        display: block;
+    }
+
+    #summary nav .middle {
+        border-left: 1px solid #eaecef;
+        border-right: 1px solid #eaecef;
+    }
+
+    #summary .number {
+        font-weight: bold;
+    }
+
+    #summary .link-list {
+        margin-top: 5px;
+        padding: 5px 5px 0 5px;
+        border-top: 1px dashed #999;
+        overflow: hidden;
+    }
+
+    #summary .link-list img {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+
+<div id="summary">
+    <nav>
+        <a href="/" class="col-xs-4">
+            <number class="number">2</number><span>文章</span>
+        </a>
+        <a href="/series" class="col-xs-4 middle">
+            <number class="number">0</number><span>专题</span>
+        </a>
+        <a href="/tags" class="col-xs-4">
+            <number class="number">0</number><span>标签</span>
+        </a>
+    </nav>
+
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
+    <div class="link-list">
         
-          <li>
-            <a href="/post/20190701_essay.html">做一个有趣的人</a>
-          </li>
+        <a class="col-xs-4" href="https://github.com/geektutu/hexo-theme-geektutu"><img src="/img/related_links/github.png" /></a>
         
-          <li>
-            <a href="/post/20190619_meshview.html">MeshView</a>
-          </li>
+        <a class="col-xs-4" href="mailto:Hanxiatu&lt;hanxiatu@gmail.com&gt;?subject=From Hanxiatu&#39;s Blog"><img src="/img/related_links/email.png" /></a>
         
-      </ul>
     </div>
-  </div>
+    
+</div></section>
+            
+            <section><!-- Featured Tags -->
+<style>
+    #featured-tag .post-tag-item {
+        font-size: 12px;
+        line-height: 30px;
+        display: inline-block;
+        height: 30px;
+        margin: 5px 3px;
+        padding: 0 12px;
+        color: #333;
+        border-radius: 15px;
+        background: #f6f6f6;
+    }
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 hanxiatu<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    #featured-tag .post-tag-item:hover {
+        color: #108ee9;
+    }
+</style>
+<section id="featured-tag">
+    
+</section></section>
+            
+        </div>
+    </aside>
+</main>
+<script>
+    (function () {
+        var lastPos = 0;
+        var wrapper = document.querySelector('#sidebar .sidebar-wrapper');
+
+        window.addEventListener("scroll", function (e) {
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            var isDown = scrollTop > lastPos;
+            scrollTop > 220 && wrapper.classList.add("sidebar-fixed");
+            scrollTop <= 220 && wrapper.classList.remove("sidebar-fixed");
+            lastPos = scrollTop;
+        })
+    })();
+</script>
     </div>
-  </div>
+
+    <style>
+    img#go-top {
+        position: fixed;
+        bottom: 100px;
+        width: 50px;
+        cursor: pointer;
+    }
+</style>
+<img id="go-top" src="/icon/top.png" class="hidden-xs" style="display: none" />
+<script>
+    (function () {
+        var goTop = document.getElementById('go-top');
+        var mainContainer = document.querySelector('.main-container');
+        
+        goTop.addEventListener('click', function () {
+            window.scroll(0, 0);
+        }, false);
+        window.addEventListener('scroll', function () {
+            var right = document.body.offsetWidth - mainContainer.getBoundingClientRect().right;
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            goTop.style.right = right + 10 + 'px'
+            scrollTop > 700 && (goTop.style.display = "block");
+            scrollTop <= 700 && (goTop.style.display = "none");
+        });
+    })();
+</script>
+    <style>
+    #geektutu-click-img-container {
+        position: fixed;
+        left: 0;
+        top: 0;
+        text-align: center;
+        width: 100%;
+        display: none;
+        z-index: 9999;
+    }
+
+    #geektutu-click-img-container img {
+        object-fit: contain;
+        background: #eaecef;
+        padding: 15px;
+        border-radius: 10px;
+        height: auto;
+        width: auto;
+        vertical-align: middle;
+    }
+</style>
+
+
+<div id="geektutu-click-img-container">
+    <img src="" alt="Big Image">
+</div>
+
+<script>
+    (function () {
+        var container = document.querySelector('#geektutu-click-img-container')
+        var targetImg = container.querySelector('img')
+        var imgs = document.querySelectorAll('article img');
+        targetImg.addEventListener('click', function (e) {
+            container.style.display = 'none';
+            e && e.stopPropagation && e.stopPropagation();
+        }, false);
+
+        for (var i = 0; i < imgs.length; ++i) {
+            var img = imgs[i];
+            img.addEventListener('click', (function (src, rate) {
+                return function (e) {
+                    e && e.stopPropagation && e.stopPropagation();
+                    if (window.innerWidth < 980) {
+                        return
+                    }
+                    targetImg.style.height = targetImg.style.width = 'auto';
+                    if (window.innerWidth / window.innerHeight > rate) {
+                        targetImg.style.height = (window.innerHeight - 20) + 'px';
+                    } else {
+                        targetImg.style.width = (window.innerWidth - 20) + 'px';
+                    }
+                    container.style.height = window.innerHeight + 'px'
+                    container.style.lineHeight = window.innerHeight + 'px'
+                    container.style.display = 'block';
+                    targetImg.src = src;
+                };
+            }(img.src, img.width / img.height)), false)
+        }
+    })();
+</script>
+    <!-- Footer -->
+    <!-- Footer -->
+<style>
+    footer {
+        width: 100%;
+        line-height: 1.5;
+        padding: 20px;
+    }
+
+    footer a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    .footer-hexo img {
+        height: 20px;
+        margin-bottom: -5px;
+    }
+
+    .footer-hexo a {
+        color: #108ee9;
+    }
+</style>
+<footer class="text-center">
+    <p>
+        <small>© 2019 - 寒夏汢 - </small>
+        <small>
+            <a target="_blank" rel="nofollow noopener" href="http://www.miitbeian.gov.cn/"></a>
+        </small>
+    </p>
+    <p class="footer-hexo">
+        <!-- 但若直接使用或修改主题，请务必保留这段声明 -->
+        <small>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> | Theme
+            <a target="_blank" href="https://geektutu.com">Geektutu</a>
+            <a href="https://github.com/geektutu/hexo-theme-geektutu">
+                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAYGBgYHBgcICAcKCwoLCg8ODAwODxYQERAREBYiFRkVFRkVIh4kHhweJB42KiYmKjY+NDI0PkxERExfWl98fKcBBgYGBgcGBwgIBwoLCgsKDw4MDA4PFhAREBEQFiIVGRUVGRUiHiQeHB4kHjYqJiYqNj40MjQ+TERETF9aX3x8p//CABEIACIAUAMBIgACEQEDEQH/xAAcAAABBAMBAAAAAAAAAAAAAAAAAQQFBwIDBgj/2gAIAQEAAAAA9KrHSgAYL5/z6zZGuJd12uugbhq3uKtmuRtix20IS7lTLAfAAAn/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oACAECEAAAAAAB/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAxAAAAAAAf/EADEQAAICAQIEBQEGBwAAAAAAAAECAwQFAAYREhORBxQhUlQxQVFic5KxJDJCYYGC0f/aAAgBAQABPwCFHnjWUzuvN6hV4cANSRLGjO9yRVUcSzMoA7jVXJYe5N0a2dhmk9kc0bN2GvLN8mbuNeWb5M3ca8s3yZu415Y/Jm7jXlm+TN3H/NeVPyZu40vOk3TZywK8wJ+v3EHVM/wsI/Dq2lrxN3Nnca16eti8chSAIoMbzByhMwP14kHVfwIiSaF5c96J6kwwCOTnHsYk8uvCrdmQy1TI4rJuz3cZLyGR/wCd4+YoOf8AEpUjXitubLYPG4paFsUxcuiGe7yc5gTW3LW44szXmobsi3Dhmic2+Z4+vCVH9CpraPiQ+QvbgTJrPFBWd5YpWrmNIIEXiRO32Pqt4p7cnfHk18lFBdmEVW1LVdIZGOrniTt6plrWKaO69yCykDRxwF+LMAewB0Txtr+Sf31VI8tEPw62fZt7N3Humtbpzz13ucX6CGSWMSuzpLyD1eNgeUka3PuvHbaxq3biTMHfkiSNCS78CwU+3Xg7Vu3MhuTcU6cq3Zemn3Eh2dv8Lzcut+29x1atKbHYqLJUhLwyNMwiZ3j9yDWOxUOV3tgb+3No5LDx1pi9+aeIwRlNY6bc+Jv+IFGrhLxtXJZ7VKcw81diiAAEn0JOrkWZyNfbEr0tz27UGQgkuGzXdIIvyowq99bRxk9ffO/L81SZBPZgEEroQroIxxMZOgeNsfkn99QypHGqO4Vl9CDrN4LDZkwyzyyQ2IgRHZrzGCZVP1XnQglT9oOtw4LC7iqV6uRkZoYpxKFSQpzFRw4EjVRMfSrQ1qqwxQxKFjjTgFUD7BoWYR6iVe+mtxt9Zwf9teaj4AdccPu5tedX5A/VrzUR+sy/q1CwksF19VEfDj/cnQRW+qg66cfsXtrpx+xe2unH7F7a6cfsXtrpx+xe2unH7F7a6cfsXtoxx+xe2gAAOA1//8QAFBEBAAAAAAAAAAAAAAAAAAAAMP/aAAgBAgEBPwB//8QAFBEBAAAAAAAAAAAAAAAAAAAAMP/aAAgBAwEBPwB//9k="
+                    alt="Github Star">
+            </a>
+        </small>
+    </p>
+    
+    <p><small><span id="cnzz_stat_icon_123649"></span></small></p>
+    
 </footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<!-- Baidu Tongji -->
+
+<script>
+    window.addEventListener('load', function () {
+        var _hmt = _hmt || [];
+        globalAddScript('//hm.baidu.com/hm.js?1a0ec33b1aa')
+    })
+</script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script>
+    window.addEventListener('load', function () {
+        globalAddScript('//s23.cnzz.com/z_stat.php?id=123649&online=2');
+    })
+</script>
 
 
-<script src="/js/script.js"></script>
+<!-- baidu auto push for seo -->
+<script>
+    window.addEventListener('load', function () {
+        var src = 'http://push.zhanzhang.baidu.com/push.js'
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        globalAddScript(src);
+    })
+</script>
 
 
 
-  </div>
+    <script>
+        // 非本站网址，新开tab页签
+        (function () {
+            var links = document.querySelectorAll('a');
+            [].slice.call(links).forEach(function (item) {
+                if (item.href && item.href.indexOf(window.location.host) === -1) {
+                    item.target = '_blank'
+                }
+                // 阻止冒泡，不触发彩蛋。
+                item.addEventListener('click', function (e) { e && e.stopPropagation && e.stopPropagation(); }, false); 
+            });
+        })();
+    </script>
+    <script>
+    (function (window, document, undefined) {
+        var hearts = [];
+        var keywords = ["点个赞", "留个言", "赞赏一下", "寒夏汢", "hanxiatu.com"];
+        function randomInt(max) {
+            return Math.floor(Math.random() * Math.floor(max));
+        }
+        window.addEventListener('click', createWord)
+
+        function createWord(e) {
+            var d = document.createElement("span");
+            d.style.position = 'fixed';
+            d.style.zIndex = 9999;
+            d.style.color = 'rgb(' + [randomInt(255), randomInt(255), randomInt(255)].join(',') + ')';
+            d.innerHTML = keywords[randomInt(keywords.length)];
+            d.onselectstart = function () { return false; }
+
+            hearts.push({ el: d, x: e.clientX - 5, y: e.clientY - 5, alpha: 1, scale: 1 });
+            document.body.appendChild(d);
+        }
+        (function gameloop() {
+            for (var i = 0; i < hearts.length; i++) {
+                heart = hearts[i];
+                if (heart.alpha <= 0) {
+                    document.body.removeChild(heart.el);
+                    hearts.splice(i, 1);
+                    continue;
+                }
+                heart.y -= heart.alpha < 0.5 ? 2 : 1;
+                heart.scale += 0.002;
+                heart.alpha -= 0.013;
+                heart.el.style.transform = 'scale(' + heart.scale + ')';
+                heart.el.style.left = heart.x + 'px';
+                heart.el.style.top = heart.y + 'px';
+            }
+            setTimeout(gameloop, 10)
+        })();
+    })(window, document);
+
+</script>
 </body>
+
 </html>
