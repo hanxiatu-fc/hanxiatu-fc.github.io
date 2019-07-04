@@ -14,13 +14,13 @@
   <!-- if page has tags, then add tags to keyword -->
   
   
-  <meta name="keywords" content="寒夏汢,寒夏汢的博客,寒夏汢的小站,">
+  <meta name="keywords" content="寒夏汢,寒夏汢的博客,寒夏汢的小站,C/C++,包管理,">
   <!-- page.description has higher priority -->
-  <meta name="description" content="寒夏汢的小站，致力于分享一些技术教程和有趣的技术实践。">
+  <meta name="description" content="Conan">
   <link rel="shortcut icon" href="/img/icon.jpg">
   <title>
     
-    寒夏汢
+    Conan（二）：使用Artifactory搭建私仓 | 寒夏汢
     
   </title>
 
@@ -340,15 +340,75 @@
 </style>
 <!-- Post Content -->
 <article class="post-container">
-    <h1>  </h1>
+    <h1> Conan（二）：使用Artifactory搭建私仓 </h1>
 
     
 
     
+    <div class="series_links">
+        <p> <strong> Conan系列文章链接：</strong></p>
+        <ul>
+            
+            <li>
+                <a href="/post/201907/Conan_overview.html">Conan（一）：初识Conan（C/C++包管理器）</a>
+                <span class="post-item-date">(Jul 4, 2019)</span>
+            </li>
+            
+            <li>
+                <a href="/post/201907/Conan_localrepo.html">Conan（二）：使用Artifactory搭建私仓</a>
+                <span class="post-item-date">(Jul 4, 2019)</span>
+            </li>
+            
+        </ul>
+    </div>
     
     
     
     
+    <h1 id="0x0-安装本地Artifactory服务"><a href="#0x0-安装本地Artifactory服务" class="headerlink" title="0x0 安装本地Artifactory服务"></a>0x0 安装本地Artifactory服务</h1><ol>
+<li><p>下载jfrog-artifactory-cpp-ce-6.8.15.zip<br><a href="https://bintray.com/jfrog/product/JFrog-Artifactory-Cpp-CE/view" target="_blank" rel="noopener">https://bintray.com/jfrog/product/JFrog-Artifactory-Cpp-CE/view</a></p>
+</li>
+<li><p>启动服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(win)</span><br><span class="line">$ 解压 jfrog-artifactory-cpp-ce-6.8.15.zip</span><br><span class="line">$ cd artifactory-cpp-ce-6.8.15/bin</span><br><span class="line">$ artifactory.bat</span><br><span class="line"></span><br><span class="line">(linux)</span><br><span class="line">$ 解压 jfrog-artifactory-cpp-ce-6.8.15.zip</span><br><span class="line">$ cd artifactory-cpp-ce-6.8.15/bin</span><br><span class="line">$ ./artifactory.sh</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p><em>注：<br>需要配置JAVA_HOME、JRE_HOME， 否则可以启动失败，如报错“java执行失败”。注意，在windows如果自己安装了java，可将系统默认安装的卸载掉，这样方便设置 JAVA_HOME和JRE_HOME</em></p>
+<ol start="3">
+<li>登陆查看 <a href="http://localhost:8081/artifactory" target="_blank" rel="noopener">http://localhost:8081/artifactory</a></li>
+</ol>
+<h1 id="0x1-配置"><a href="#0x1-配置" class="headerlink" title="0x1 配置"></a>0x1 配置</h1><ul>
+<li><p>默认账户<br>账号：<code>admin</code><br>密码：<code>password</code></p>
+</li>
+<li><p>配置conan仓库（服务启动之后，按照网页提示操作）<br><img src="Conan_localrepo/conan_create_repo.png" alt="create conan仓库"></p>
+</li>
+</ul>
+<ul>
+<li><p>To add the repository to your conan CLI</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">conan remote add &lt;REMOTE&gt; http://localhost:8081/artifactory/api/conan/conan-local</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">conan remote add connan_linux http://localhost:8081/artifactory/api/conan/conan-local</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>To login use the conan user command</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">conan user -p &lt;PASSWORD&gt; -r &lt;REMOTE&gt; &lt;USERNAME&gt;</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">conan user -p password -r connan_linux admin</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="0x2-创建demo-amp-构建-amp-上传"><a href="#0x2-创建demo-amp-构建-amp-上传" class="headerlink" title="0x2 创建demo &amp; 构建 &amp; 上传"></a>0x2 创建demo &amp; 构建 &amp; 上传</h1><ul>
+<li><p>创建demo&amp;构建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">conan new &lt;NAME&gt;/&lt;VERSION&gt; -t</span><br><span class="line">例如：</span><br><span class="line">conan new Hello/0.1 -t</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">conan create . &lt;USER&gt;/&lt;CHANNEL&gt;</span><br><span class="line">例如：</span><br><span class="line">conan create . demo/testing</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>deploy</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">conan upload &lt;recipe&gt; -r &lt;REMOTE&gt; --all</span><br><span class="line"></span><br><span class="line">&lt;recipe&gt;  格式: &lt;NAME&gt;/&lt;VERSION&gt;@&lt;USER&gt;/&lt;CHANNEL&gt;</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">conan upload Hello/0.1@demo/testing --all -r=connan_linux</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="Conan_localrepo/conan_create_upload_result.png" alt="提交效果"></p>
+<h1 id="0x3-参考链接"><a href="#0x3-参考链接" class="headerlink" title="0x3 参考链接"></a>0x3 参考链接</h1><ol>
+<li><p><a href="https://jfrog.com/blog/announcing-jfrog-artifactory-community-edition-c-c/" target="_blank" rel="noopener">https://jfrog.com/blog/announcing-jfrog-artifactory-community-edition-c-c/</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/rongfengliang/p/9229462.html" target="_blank" rel="noopener">https://www.cnblogs.com/rongfengliang/p/9229462.html</a></p>
+</li>
+</ol>
+
     <p>
         本站永久域名<strong>「 <a href="/post/201907/Conan_localrepo.html">hanxiatu.com</a>
             」</strong>，
@@ -374,20 +434,37 @@
         <p>
             <span>标签: </span>
             
+            <a href="/tags/#C/C++">
+                <code style="color: #333" key="C/C++" class="post-label">#C/C++</code>
+            </a>
+
+            
+            <a href="/tags/#包管理">
+                <code style="color: #333" key="包管理" class="post-label">#包管理</code>
+            </a>
+
+            
         </p>
         
         <p>
-            <span>发表于2019-07-04 21:27:58，最后修改于2019-07-04 21:27:58。</span>
+            <span>专题: </span>
+            
+            <a href="/series/#Conan">
+                <code style="color: #c7254e" key="Conan" class="post-label">Conan</code>
+            </a>
+            
+        </p>
+        
+        <p>
+            <span>发表于2019-07-04 23:49:11，最后修改于2019-07-05 01:10:18。</span>
         </p>
         <p><span>若无特别声明，本站文章欢迎链接分享，但禁止全文转载。</span></p>
     </div>
     <hr />
     <p name="pagination">
     
-    <a class="float-left" href="/post/201907/Essay-0701.html">« 上一篇 做一个有趣的人</a>
+    <a class="float-left" href="/post/201907/Conan_overview.html">« 上一篇 Conan（一）：初识Conan（C/C++包管理器）</a>
     
-    
-    <a class="float-right" href="/post/201907/Conan_overview.html">下一篇 » Conan（一）：初识Conan（C/C++包管理器）</a>
     
 </p>
 </article>
@@ -531,6 +608,38 @@
     
     
     <div class="post-preview">
+    <div class="post-img" style="background-image: url('/post/201907/Conan_localrepo/jfrog_artifactory_cpp.png')"></div>
+    <div class="post-info">
+        <div class="post-info-center">
+            <div class="hidden-xs">
+                
+                <span>/</span>
+                
+                <a class="text-gray" href="/tags/#C/C++"
+                    title="C/C++">C/C++</a>
+                <span>/</span>
+                
+                <a class="text-gray" href="/tags/#包管理"
+                    title="包管理">包管理</a>
+                <span>/</span>
+                
+                
+            </div>
+            <a href="/post/201907/Conan_localrepo.html" class="title">
+                Conan（二）：使用Artifactory搭建私仓
+            </a>
+            <p class="text-gray">
+                <small>
+                    <span>发表于2019-07-04，</span>
+                    <span class="hidden-xs">全文1747字，</span>
+                    <span>阅读约3分钟</span>
+                </small>
+            </p>
+        </div>
+    </div>
+</div>
+    
+    <div class="post-preview">
     <div class="post-img" style="background-image: url('/post/201907/Conan_overview/jfrog_conan_logo.png')"></div>
     <div class="post-info">
         <div class="post-info-center">
@@ -554,35 +663,7 @@
             <p class="text-gray">
                 <small>
                     <span>发表于2019-07-04，</span>
-                    <span class="hidden-xs">全文1577字，</span>
-                    <span>阅读约3分钟</span>
-                </small>
-            </p>
-        </div>
-    </div>
-</div>
-    
-    <div class="post-preview">
-    <div class="post-img" style="background-image: url('/img/essay.jpg')"></div>
-    <div class="post-info">
-        <div class="post-info-center">
-            <div class="hidden-xs">
-                
-                <span>/</span>
-                
-                <a class="text-gray" href="/tags/#随笔"
-                    title="随笔">随笔</a>
-                <span>/</span>
-                
-                
-            </div>
-            <a href="/post/201907/Essay-0701.html" class="title">
-                做一个有趣的人
-            </a>
-            <p class="text-gray">
-                <small>
-                    <span>发表于2019-07-01，</span>
-                    <span class="hidden-xs">全文2043字，</span>
+                    <span class="hidden-xs">全文1569字，</span>
                     <span>阅读约3分钟</span>
                 </small>
             </p>
@@ -663,11 +744,11 @@
     
 
     <a class="post-tag-item" href="/tags/#C/C++" title="C/C++"
-        rel="1">#C/C++ (1) </a>
+        rel="2">#C/C++ (2) </a>
     
 
     <a class="post-tag-item" href="/tags/#包管理" title="包管理"
-        rel="1">#包管理 (1) </a>
+        rel="2">#包管理 (2) </a>
     
 
     <a class="post-tag-item" href="/tags/#随笔" title="随笔"
@@ -820,16 +901,38 @@
 <div>
   <ul class="text-center sidebar-wrapper-tabs">
     
+    <li value="0" class="sidebar-title">文章目录</li>
+    
+    
+    <li value="1" class="sidebar-title active">专题合集</li>
     
   </ul>
 
   <div id="sidebar-toc" style="display: none">
     <!-- TOC  -->
     
+    <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#0x0-安装本地Artifactory服务"><span class="toc-nav-text">0x0 安装本地Artifactory服务</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#0x1-配置"><span class="toc-nav-text">0x1 配置</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#0x2-创建demo-amp-构建-amp-上传"><span class="toc-nav-text">0x2 创建demo &amp; 构建 &amp; 上传</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#效果"><span class="toc-nav-text">效果</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#0x3-参考链接"><span class="toc-nav-text">0x3 参考链接</span></a></li></ol>
+    
   </div>
 
   <!--  同专题文章 -->
   <div id="sidebar-series-list">
+    
+    <ol>
+      
+      <li>
+        <a href="/post/201907/Conan_overview.html">
+          Conan（一）：初识Conan（C/C++包管理器）
+        </a>
+      </li>
+      
+      <li>
+        <a href="/post/201907/Conan_localrepo.html">
+          Conan（二）：使用Artifactory搭建私仓
+        </a>
+      </li>
+      
+    </ol>
     
   </div>
 </div>
