@@ -16,11 +16,11 @@ Conan项目有如下几个值得关注的地方：
 1. 分布式包管理（Decentralized package manager）
 
 ![Decentralized package manager](Conan_overview/conan_decentralized_pm.png)
-|  Server  | 场景  | 特点 |
-|  ----  | ----  | ---- |
-| Conan server  | private | Conan client&server都是OSS, MIT license，可随意修改使用|
-| JFrog Artifactory  | private | 更好的服务 |
-| JFrog Bintray  | public | 共享 |
+| Server | 场景 | 特点 |
+| ---- | ---- | ---- |
+| Conan server | private | Conan client&server都是OSS, MIT license，可随意修改使用 |
+| JFrog Artifactory | private | 更好的服务 |
+| JFrog Bintray | public | 共享 |
 
 2. 二进制的管理方法（Binary Manage）
 
