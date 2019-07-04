@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hanxiatu.com/"/>
-  <updated>2019-07-02T14:47:03.531Z</updated>
+  <updated>2019-07-04T14:42:00.114Z</updated>
   <id>https://hanxiatu.com/</id>
   
   <author>
@@ -15,6 +15,44 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Conan（一）：初识Conan -&gt; C/C++包管理器</title>
+    <link href="https://hanxiatu.com/post/201907/Conan_overview.html"/>
+    <id>https://hanxiatu.com/post/201907/Conan_overview.html</id>
+    <published>2019-07-04T15:13:24.000Z</published>
+    <updated>2019-07-04T14:42:00.114Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="0x0-Introduction-amp-Install"><a href="#0x0-Introduction-amp-Install" class="headerlink" title="0x0 Introduction &amp; Install"></a>0x0 Introduction &amp; Install</h1><p>Conan is OSS, with an MIT license.</p><p>Conan项目有如下几个值得关注的地方：</p><ol><li>分布式包管理（Decentralized package manager）</li></ol><p><img src="Conan_overview/conan_decentralized_pm.png" alt="Decentralized package manager"><br>|  Server  | 场景  | 特点 |<br>|  —-  | —-  | —- |<br>| Conan server  | private | Conan client&amp;server都是OSS, MIT license，可随意修改使用|<br>| JFrog Artifactory  | private | 更好的服务 |<br>| JFrog Bintray  | public | 共享 |</p><ol start="2"><li>二进制的管理方法（Binary Manage）</li></ol><ul><li>服务端是一对多的模式：<code>recipe + binaries</code></li><li>使用者获取 “recipe + 适合的binary”<br><img src="Conan_overview/conan_binary_manage.png" alt="Binary Manage"></li></ul><ol start="3"><li>跨平台&amp;支持多种构建系统（Cross platform, build system agnostic）</li></ol><ul><li>os（compiler） + arch</li><li>Conan可以和任意一种build system配合使用。常用的如Cmake</li></ul><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install conan</span><br></pre></td></tr></table></figure><h1 id="0x1-Get-Started-以Cmake为例"><a href="#0x1-Get-Started-以Cmake为例" class="headerlink" title="0x1 Get Started (以Cmake为例)"></a>0x1 Get Started (以Cmake为例)</h1><ol><li><p>准备一个基本的工程</p></li><li><p>准备conanfile.txt¶</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[requires]</span><br><span class="line">Poco/1.9.0@pocoproject/stable</span><br><span class="line"></span><br><span class="line">[generators]</span><br><span class="line">cmake</span><br></pre></td></tr></table></figure></li><li><p>conna install &lt;conanfile.txt path&gt;</p></li><li><p>CMakeLists.txt 集成上一步的输出 : conanbuildinfo.cmake</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">include($&#123;CMAKE_BINARY_DIR&#125;/conanbuildinfo.cmake)</span><br><span class="line">conan_basic_setup()</span><br></pre></td></tr></table></figure></li><li><p>Cmake config &amp; build</p></li></ol><h1 id="0x2-参考链接"><a href="#0x2-参考链接" class="headerlink" title="0x2 参考链接"></a>0x2 参考链接</h1><ol><li><a href="https://docs.conan.io/en/latest/introduction.html" target="_blank" rel="noopener">Conan : Introduction</a></li><li><a href="https://docs.conan.io/en/latest/installation.html" target="_blank" rel="noopener">Conan : Install</a></li><li><a href="https://docs.conan.io/en/latest/getting_started.html" target="_blank" rel="noopener">Conan : Get Started</a></li><li><a href="https://jenkins.io/blog/2017/07/07/jenkins-conan/" target="_blank" rel="noopener">Continuous Integration for C/C++ Projects with Jenkins and Conan</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      Conan
+    
+    </summary>
+    
+      <category term="Conan" scheme="https://hanxiatu.com/categories/Conan/"/>
+    
+    
+      <category term="C/C++" scheme="https://hanxiatu.com/tags/C-C/"/>
+    
+      <category term="包管理" scheme="https://hanxiatu.com/tags/%E5%8C%85%E7%AE%A1%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://hanxiatu.com/post/201907/Conan_localrepo.html"/>
+    <id>https://hanxiatu.com/post/201907/Conan_localrepo.html</id>
+    <published>2019-07-04T13:27:58.012Z</published>
+    <updated>2019-07-04T13:27:58.012Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>做一个有趣的人</title>

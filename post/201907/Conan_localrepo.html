@@ -14,17 +14,17 @@
   <!-- if page has tags, then add tags to keyword -->
   
   
-  <meta name="keywords" content="寒夏汢,寒夏汢的博客,寒夏汢的小站,Android,OpengGL,Graphic,">
+  <meta name="keywords" content="寒夏汢,寒夏汢的博客,寒夏汢的小站,">
   <!-- page.description has higher priority -->
-  <meta name="description" content="\[android\] use drawBitmapMesh to get 3D effect">
+  <meta name="description" content="寒夏汢的小站，致力于分享一些技术教程和有趣的技术实践。">
   <link rel="shortcut icon" href="/img/icon.jpg">
   <title>
     
-    MeshView | 寒夏汢
+    寒夏汢
     
   </title>
 
-  <link rel="canonical" href="/post/201906/MeshView.html">
+  <link rel="canonical" href="/post/201907/Conan_localrepo.html">
 
   <link rel="stylesheet" href="/css/reset.css">
   <link rel="stylesheet" href="/css/layout.css">
@@ -340,122 +340,17 @@
 </style>
 <!-- Post Content -->
 <article class="post-container">
-    <h1> MeshView </h1>
+    <h1>  </h1>
 
     
 
     
-    <div class="series_links">
-        <p> <strong> Graphic系列文章链接：</strong></p>
-        <ul>
-            
-            <li>
-                <a href="/post/201906/MeshView.html">MeshView</a>
-                <span class="post-item-date">(Jun 19, 2019)</span>
-            </li>
-            
-        </ul>
-    </div>
     
     
     
     
-    <h1 id="0x0、必备知识"><a href="#0x0、必备知识" class="headerlink" title="0x0、必备知识"></a>0x0、必备知识</h1><p>  阅读本文之前，读者最好具备一定的OpenGL的开发背景，并了解OpenGL渲染流程。学习资源可以参考：</p>
-<ul>
-<li><a href="https://learnopengl.com/" target="_blank" rel="noopener">Learn OpenGL</a></li>
-<li><a href="http://www.songho.ca/opengl/index.html" target="_blank" rel="noopener">OpenGL - Song Ho Ahn</a></li>
-</ul>
-<h1 id="0x1、背景介绍"><a href="#0x1、背景介绍" class="headerlink" title="0x1、背景介绍"></a>0x1、背景介绍</h1><p>  在项目开发中，经常需要开发一些炫酷的3D效果。在Android系统上，通常来说可以通过系统提供的OpenGL的java接口来实现（如GLES20.java）。android系统并提供了GLSurfaceView等一套框架机制，直接帮助开发者将gl环境准备好，开发者剩下的工作就是建立模型（model）、设计着色算法（shader）。但是GLSurfaceView整套机制相对来说还是比较重型（独立的gl渲染线程），功耗也比较大。然而有这么一些非常简单的3D特效，直接嵌入在用户交互界面里，对功耗的要求尽量要低，这个时候采用GLSrufaceView那套机制并不合适。</p>
-<p>  经过一些调研，发现android原生的接口Canvas.drawBitmapMesh提供的能力可以帮助实现在任意view上的3D效果。本文介绍的内容就是：如果将OpengGL中建模以及渲染流程的知识和接口Canvas.drawBitmapMesh结合起来，并开发一个小的“渲染引擎”，将这种能力基线化。</p>
-<p>  <strong>示例</strong>  </p>
-<p><img src="MeshView/face_guide.gif" alt="face_guide"> <img src="MeshView/num_picker.gif" alt="num_picker"></p>
-<h1 id="0x2、原理介绍"><a href="#0x2、原理介绍" class="headerlink" title="0x2、原理介绍"></a>0x2、原理介绍</h1><h2 id="Mesh原理"><a href="#Mesh原理" class="headerlink" title="Mesh原理"></a>Mesh原理</h2><p><img src="MeshView/mesh_example.png" alt="mesh"></p>
-<h2 id="Canvas-drawBitmapMesh"><a href="#Canvas-drawBitmapMesh" class="headerlink" title="Canvas.drawBitmapMesh"></a>Canvas.drawBitmapMesh</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"> /**</span><br><span class="line"> * Draw the bitmap through the mesh, where mesh vertices are evenly distributed across the</span><br><span class="line"> * bitmap. There are meshWidth+1 vertices across, and meshHeight+1 vertices down. The verts</span><br><span class="line"> * array is accessed in row-major order, so that the first meshWidth+1 vertices are distributed</span><br><span class="line"> * across the top of the bitmap from left to right. A more general version of this method is</span><br><span class="line"> * drawVertices().</span><br><span class="line"> *</span><br><span class="line"> * Prior to API level &#123;@value Build.VERSION_CODES#P&#125; vertOffset and colorOffset were ignored,</span><br><span class="line"> * effectively treating them as zeros. In API level &#123;@value Build.VERSION_CODES#P&#125; and above</span><br><span class="line"> * these parameters will be respected.</span><br><span class="line"> *</span><br><span class="line"> * @param bitmap The bitmap to draw using the mesh</span><br><span class="line"> * @param meshWidth The number of columns in the mesh. Nothing is drawn if this is 0</span><br><span class="line"> * @param meshHeight The number of rows in the mesh. Nothing is drawn if this is 0</span><br><span class="line"> * @param verts Array of x,y pairs, specifying where the mesh should be drawn. There must be at</span><br><span class="line"> *            least (meshWidth+1) * (meshHeight+1) * 2 + vertOffset values in the array</span><br><span class="line"> * @param vertOffset Number of verts elements to skip before drawing</span><br><span class="line"> * @param colors May be null. Specifies a color at each vertex, which is interpolated across the</span><br><span class="line"> *            cell, and whose values are multiplied by the corresponding bitmap colors. If not</span><br><span class="line"> *            null, there must be at least (meshWidth+1) * (meshHeight+1) + colorOffset values</span><br><span class="line"> *            in the array.</span><br><span class="line"> * @param colorOffset Number of color elements to skip before drawing</span><br><span class="line"> * @param paint May be null. The paint used to draw the bitmap</span><br><span class="line"> */</span><br><span class="line">public void drawBitmapMesh(@NonNull Bitmap bitmap, int meshWidth, int meshHeight,</span><br><span class="line">        @NonNull float[] verts, int vertOffset, @Nullable int[] colors, int colorOffset,</span><br><span class="line">        @Nullable Paint paint) &#123;</span><br><span class="line">    super.drawBitmapMesh(bitmap, meshWidth, meshHeight, verts, vertOffset, colors, colorOffset,</span><br><span class="line">            paint);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>bitmap</code>：类似于gl中的texture</li>
-<li><code>meshWidth</code>：网格纵切的数目</li>
-<li><code>meshHeight</code>：网格横切的数目</li>
-<li><code>verts</code>：类似于gl中的vertex array</li>
-<li><code>vertOffset</code></li>
-<li><code>colors</code>：可用来模拟mask（未demo测试）</li>
-<li><code>colorOffset</code></li>
-<li><code>paint</code></li>
-</ul>
-<h2 id="OpenGl的建模和渲染过程"><a href="#OpenGl的建模和渲染过程" class="headerlink" title="OpenGl的建模和渲染过程"></a>OpenGl的建模和渲染过程</h2><p>OpenGL中vertex transformation：</p>
-<p><img src="MeshView/vertex_render_process.png" alt="vertex_render_process"></p>
-<p>对应的计算过程：</p>
-<p><img src="MeshView/vertex_render_calculate.png" alt="vertex_render_calculate"></p>
-<p>通常来讲，通过OpenGL开放的接口，实现3D效果（不考虑着色），需要提供：</p>
-<ul>
-<li>local space建模数据：即vertex array in local space</li>
-<li>MVP matrix：Model matrix, View matrix, Project matrix</li>
-<li>视窗：即viewport</li>
-</ul>
-<h1 id="0x3、工程实践简介"><a href="#0x3、工程实践简介" class="headerlink" title="0x3、工程实践简介"></a>0x3、工程实践简介</h1><p><strong>OpenGL流程和MeshiView实践对比</strong></p>
-<ol>
-<li>OpengGL的流程<br><img src="MeshView/gl_render_outline.png" alt="gl_render_outline"><br>可以看到在android的OpenGL开发过程中，数据的处理过程是黑盒的（即Not visible to developer），开发人员只需要传入这个几方面的数据：</li>
-</ol>
-<ul>
-<li>Vertex Model ： Local space 对3D物体建模之后的顶点数据 &amp; modle matrix</li>
-<li>viewport ：通过GLES.glviewport设置</li>
-<li>view matrix: 通过Matrix - GLES20系列接口传递(setLookAtM)</li>
-<li>projection matrix: 通过Matrix - GLES20系列接口传递(orthoM、frustumM、perspectiveM)</li>
-</ul>
-<ol start="2">
-<li>MeshView实践<br><img src="MeshView/meshview_render_outline.png" alt="meshview_render_outline"><br>因为Mesh并不走传统的android的OpenGL的流程，所以GLES20的接口都不会被使用，所以需要做如下工作</li>
-</ol>
-<ul>
-<li>Vertex Model：同OpenGL</li>
-<li>viewport、setLookAt、ortho、frustum、perspective 等接口</li>
-<li>使用内部私有方法@Method:mesh实现 vertex * MVP（其实在OpenGL中一般实在vertex shader中实现，可以灵活实现，但基本上就是vertex * MVP）</li>
-<li>将准备好的verts传递给Canvas.drawBitmapMesh处理</li>
-</ul>
-<p><strong>模拟接口对比</strong></p>
-<table>
-<thead>
-<tr>
-<th>提供的接口</th>
-<th>对应模拟的android系统接口</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>MeshObject.viewport</td>
-<td>android.opengl.GLES20.glviewport</td>
-</tr>
-<tr>
-<td>MeshObject.ortho</td>
-<td>android.opengl.Matrix.orthoM</td>
-</tr>
-<tr>
-<td>MeshObject.frustum</td>
-<td>android.opengl.Matrix.frustumM</td>
-</tr>
-<tr>
-<td>MeshObject.perspective</td>
-<td>android.opengl.Matrix.perspectiveM</td>
-</tr>
-<tr>
-<td>MeshObject.setLookAt</td>
-<td>android.opengl.Matrix.setLookAtM</td>
-</tr>
-</tbody></table>
-<p><strong>核心计算方法</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">private Vec3 mesh(Vec4 vert, float[] mvpMatrix) &#123;</span><br><span class="line">    float[] from = new float[] &#123;vert.x, vert.y, vert.z, vert.w&#125;;</span><br><span class="line">    float[] to = new float[4];</span><br><span class="line">    Matrix.multiplyMV(to,0, mvpMatrix,0, from,0);</span><br><span class="line"></span><br><span class="line">    Vec4 clip = new Vec4(to[0], to[1], to[2], to[3]);</span><br><span class="line"></span><br><span class="line">    Vec4 ndc = new Vec4(clip.x/clip.w, clip.y/clip.w, clip.z/clip.w, 1.0f);</span><br><span class="line"></span><br><span class="line">    ViewPort viewPort = getViewPort();</span><br><span class="line">    float x = viewPort.x;</span><br><span class="line">    float y = viewPort.y;</span><br><span class="line">    float w = viewPort.w;</span><br><span class="line">    float h = viewPort.h;</span><br><span class="line">    float n = viewPort.n;</span><br><span class="line">    float f = viewPort.f;</span><br><span class="line"></span><br><span class="line">    float wx = w/2 * (ndc.x + 1) + x;</span><br><span class="line">    float wy = h/2 * (ndc.y + 1) + y;</span><br><span class="line">    float wz = (f - n)/2 * ndc.z + (f + n)/2;</span><br><span class="line"></span><br><span class="line">    return new Vec3(wx, wy, wz);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><em><code>注：抱歉，完整的工程因个人原因已从github删除。只保留如上最核心的函数。</code></em></p>
-<h1 id="0x4、遗留问题"><a href="#0x4、遗留问题" class="headerlink" title="0x4、遗留问题"></a>0x4、遗留问题</h1><ul>
-<li><p>目前只是简单的模拟了OpenGL背后的渲染流程，一些高级特性不具备。例如利用深度信息判断点的前后关系并裁剪的能力不具备。这样就要求使用者精确建模，避免出现有不同深度信息的点，否者绘制顺序无法保证最前面的点被后绘制（看到的现象就是物体背后的信息发生了穿透）</p>
-<p>例如下图中，右边的示例底部发生了穿透现象。</p>
-</li>
-</ul>
-<p><img src="MeshView/calendar_3d_ok.png" alt="ok">   <img src="MeshView/calendar_3d_error.png" alt="error"></p>
-<ul>
-<li>目前本篇博客细节介绍的并不详细，待完善</li>
-</ul>
-
     <p>
-        本站永久域名<strong>「 <a href="/post/201906/MeshView.html">hanxiatu.com</a>
+        本站永久域名<strong>「 <a href="/post/201907/Conan_localrepo.html">hanxiatu.com</a>
             」</strong>，
         也可以通过搜索<strong>「 寒夏汢 」</strong>找到我。
     </p>
@@ -479,42 +374,20 @@
         <p>
             <span>标签: </span>
             
-            <a href="/tags/#Android">
-                <code style="color: #333" key="Android" class="post-label">#Android</code>
-            </a>
-
-            
-            <a href="/tags/#OpengGL">
-                <code style="color: #333" key="OpengGL" class="post-label">#OpengGL</code>
-            </a>
-
-            
-            <a href="/tags/#Graphic">
-                <code style="color: #333" key="Graphic" class="post-label">#Graphic</code>
-            </a>
-
-            
         </p>
         
         <p>
-            <span>专题: </span>
-            
-            <a href="/series/#Graphic">
-                <code style="color: #c7254e" key="Graphic" class="post-label">Graphic</code>
-            </a>
-            
-        </p>
-        
-        <p>
-            <span>发表于2019-06-19 21:11:00，最后修改于2019-07-02 22:38:54。</span>
+            <span>发表于2019-07-04 21:27:58，最后修改于2019-07-04 21:27:58。</span>
         </p>
         <p><span>若无特别声明，本站文章欢迎链接分享，但禁止全文转载。</span></p>
     </div>
     <hr />
     <p name="pagination">
     
+    <a class="float-left" href="/post/201907/Essay-0701.html">« 上一篇 做一个有趣的人</a>
     
-    <a class="float-right" href="/post/201907/Essay-0701.html">下一篇 » 做一个有趣的人</a>
+    
+    <a class="float-right" href="/post/201907/Conan_overview.html">下一篇 » Conan（一）：初识Conan -> C/C++包管理器</a>
     
 </p>
 </article>
@@ -947,32 +820,16 @@
 <div>
   <ul class="text-center sidebar-wrapper-tabs">
     
-    <li value="0" class="sidebar-title">文章目录</li>
-    
-    
-    <li value="1" class="sidebar-title active">专题合集</li>
     
   </ul>
 
   <div id="sidebar-toc" style="display: none">
     <!-- TOC  -->
     
-    <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#0x0、必备知识"><span class="toc-nav-text">0x0、必备知识</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#0x1、背景介绍"><span class="toc-nav-text">0x1、背景介绍</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#0x2、原理介绍"><span class="toc-nav-text">0x2、原理介绍</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Mesh原理"><span class="toc-nav-text">Mesh原理</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Canvas-drawBitmapMesh"><span class="toc-nav-text">Canvas.drawBitmapMesh</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#OpenGl的建模和渲染过程"><span class="toc-nav-text">OpenGl的建模和渲染过程</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#0x3、工程实践简介"><span class="toc-nav-text">0x3、工程实践简介</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#0x4、遗留问题"><span class="toc-nav-text">0x4、遗留问题</span></a></li></ol>
-    
   </div>
 
   <!--  同专题文章 -->
   <div id="sidebar-series-list">
-    
-    <ol>
-      
-      <li>
-        <a href="/post/201906/MeshView.html">
-          MeshView
-        </a>
-      </li>
-      
-    </ol>
     
   </div>
 </div>
