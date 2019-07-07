@@ -136,4 +136,44 @@
     
   </entry>
   
+  <entry>
+    <title>友情链接</title>
+    <link href="https://hanxiatu.com/post/link.html"/>
+    <id>https://hanxiatu.com/post/link.html</id>
+    <published>2019-06-18T03:30:24.000Z</published>
+    <updated>2019-07-07T03:37:10.682Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="互粉"><a href="#互粉" class="headerlink" title="互粉"></a>互粉</h2><table><thead><tr><th>名称</th><th>描述</th></tr></thead><tbody><tr><td><a href="https://geektutu.com" target="_blank" rel="noopener">极客兔兔</a></td><td>本站使用主题作者</td></tr></tbody></table>]]></content>
+    
+    <summary type="html">
+    
+      寒夏汢的友情链接
+    
+    </summary>
+    
+    
+      <category term="友链" scheme="https://hanxiatu.com/tags/%E5%8F%8B%E9%93%BE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于我</title>
+    <link href="https://hanxiatu.com/post/about.html"/>
+    <id>https://hanxiatu.com/post/about.html</id>
+    <published>2019-06-18T03:18:24.000Z</published>
+    <updated>2019-07-07T03:36:38.171Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="个人介绍"><a href="#个人介绍" class="headerlink" title="个人介绍"></a>个人介绍</h2><p>博主网名寒夏汢，毕业于中科大计算机系（0711），就职于华为上海研究所。</p><p>对本站的任何问题都可以直接在文章下进行评论。</p><p>也可以通过<code>hanxiatu@gmail.com</code> 或 <code>hanxiatu8@gmail.com</code> 联系我。</p><p>为了节省双方的宝贵时间，作如下几点声明：</p><ul><li>邮件会尽量回复，不能做到有问必答。</li><li>请尽量在邮件中将需求或问题叙述清楚。</li></ul><h2 id="版权说明"><a href="#版权说明" class="headerlink" title="版权说明"></a>版权说明</h2><p>若无特别声明，本站文章欢迎链接分享，但禁止全文转载，本站保留一切权利。</p><h2 id="支持本站"><a href="#支持本站" class="headerlink" title="支持本站"></a>支持本站</h2><p>坚持探索、尝试新技术，并作总结并不是一件容易的事情，如能对您有所帮助，我感到非常高兴。</p><p>如果觉得本站文章还不错，欢迎收藏&amp;分享给小伙伴。</p><p>本站使用主题<a href="https://github.com/geektutu/hexo-theme-geektutu" target="_blank" rel="noopener">hexo-theme-geektutu</a>，为<a href="https://geektutu.com/" target="_blank" rel="noopener">极客兔兔</a>开发并开源，请不要吝惜您的Star！</p>]]></content>
+    
+    <summary type="html">
+    
+      寒夏汢的小站，致力于分享一些技术教程和有趣的技术实践。
+    
+    </summary>
+    
+    
+      <category term="关于我" scheme="https://hanxiatu.com/tags/%E5%85%B3%E4%BA%8E%E6%88%91/"/>
+    
+  </entry>
+  
 </feed>
