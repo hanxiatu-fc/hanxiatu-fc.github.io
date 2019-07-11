@@ -40,10 +40,10 @@ deploy:
   branch: master
 
 gitalk:
-  client_id: 'c1fdd456a4caae5f7df0'
-  client_secret: 'b2674451e21feae50520f99337ec15d2aebe7879'
-  repo: 'hexo-theme-geektutu'
-  owner: 'geektutu'
+  client_id: '2210505464d4bd90173c'
+  client_secret: '46d51b57f5ab6abb6534ed4782aadbbb2df55078'
+  repo: 'hanxiatu-fc.github.io'
+  owner: 'hanxiatu-fc'
 
 # alipay wechatpay 的二维码转换的网址，不使用二维码图片，提高加载速率。
 # https://cli.im/deqr 可将二维码转为网址
@@ -61,6 +61,6 @@ related_links:
 
 ba_auto_push: true # Baidu 自动推送，以下均为可选配置
 ba_track_id: 1a0ec33b1aa # Baidu Analytics
-cnzz_track_id: 123649 # CNZZ Analytics
+cnzz_track_id: 1277809133 # CNZZ Analytics
 #google_analysis: UA-141425-1 # Google Analytics
 #google_ad_client: ca-pub-939225546 # Google Ad
