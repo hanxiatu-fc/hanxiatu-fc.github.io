@@ -137,16 +137,16 @@
                 
                 
                 
-                <li class="gkt-cate-name float-left false">
+                <li class="gkt-cate-name float-left active">
                     <a ref="nofollow" class="float-left"
-                        href="/post/201906/MeshView.html">Graphic</a>
+                        href="/post/201907/Conan_overview.html">Conan</a>
                 </li>
                 
                 
                 
-                <li class="gkt-cate-name float-left active">
+                <li class="gkt-cate-name float-left false">
                     <a ref="nofollow" class="float-left"
-                        href="/post/201907/Conan_overview.html">Conan</a>
+                        href="/post/201906/MeshView.html">Graphic</a>
                 </li>
                 
                 
@@ -413,9 +413,9 @@
         
         
         
-        <h1 id="0x0-Installing-dependencies"><a href="#0x0-Installing-dependencies" class="headerlink" title="0x0 Installing dependencies"></a>0x0 Installing dependencies</h1><h2 id="在conanfile-txt中定义"><a href="#在conanfile-txt中定义" class="headerlink" title="在conanfile.txt中定义"></a>在conanfile.txt中定义</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># &lt;NAME&gt;/&lt;VERSION&gt;@&lt;USER&gt;/&lt;CHANNEL&gt;</span><br><span class="line">[requires]</span><br><span class="line">Poco/1.9.0@pocoproject/stable</span><br></pre></td></tr></table></figure>
+        <h2 id="0x0-Installing-dependencies"><a href="#0x0-Installing-dependencies" class="headerlink" title="0x0 Installing dependencies"></a>0x0 Installing dependencies</h2><h3 id="在conanfile-txt中定义"><a href="#在conanfile-txt中定义" class="headerlink" title="在conanfile.txt中定义"></a>在conanfile.txt中定义</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># &lt;NAME&gt;/&lt;VERSION&gt;@&lt;USER&gt;/&lt;CHANNEL&gt;</span><br><span class="line">[requires]</span><br><span class="line">Poco/1.9.0@pocoproject/stable</span><br></pre></td></tr></table></figure>
 
-<h2 id="执行-canan-install"><a href="#执行-canan-install" class="headerlink" title="执行 canan install"></a>执行 canan install</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conan install [path of conanfile.txt]</span><br></pre></td></tr></table></figure>
+<h3 id="执行-canan-install"><a href="#执行-canan-install" class="headerlink" title="执行 canan install"></a>执行 canan install</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conan install [path of conanfile.txt]</span><br></pre></td></tr></table></figure>
 
 <p><img src="Conan_using_packages/install_flow.png" alt="install_flow"></p>
 <p><strong>install的过程</strong></p>
@@ -439,7 +439,7 @@
 </ul>
 <p><strong>已cache后，执行conan install的效果</strong></p>
 <p><img src="Conan_using_packages/already_installed.png" alt="already_installed"></p>
-<h2 id="transitive-dependencies的处理"><a href="#transitive-dependencies的处理" class="headerlink" title="transitive dependencies的处理"></a>transitive dependencies的处理</h2><ul>
+<h3 id="transitive-dependencies的处理"><a href="#transitive-dependencies的处理" class="headerlink" title="transitive dependencies的处理"></a>transitive dependencies的处理</h3><ul>
 <li>demo工程显示依赖Poco</li>
 <li>Poco依赖OpenSSL</li>
 <li>OpenSSL依赖zlib<br>在执行canon install的过程中所以依赖都被处理<br><img src="Conan_using_packages/trasitive_dependencies.png" alt="transitive dependencies"></li>
@@ -459,7 +459,7 @@
 <li><p>dependencies<br><img src="Conan_using_packages/trasitive_dependencies_override.png" alt="transitive dependencies_override"></p>
 </li>
 </ul>
-<h1 id="0x1-更多定制化选择"><a href="#0x1-更多定制化选择" class="headerlink" title="0x1 更多定制化选择"></a>0x1 更多定制化选择</h1><h2 id="settings-vs-options"><a href="#settings-vs-options" class="headerlink" title="settings vs options"></a>settings vs options</h2><p><strong>二者的区别</strong></p>
+<h2 id="0x1-更多定制化选择"><a href="#0x1-更多定制化选择" class="headerlink" title="0x1 更多定制化选择"></a>0x1 更多定制化选择</h2><h3 id="settings-vs-options"><a href="#settings-vs-options" class="headerlink" title="settings vs options"></a>settings vs options</h3><p><strong>二者的区别</strong></p>
 <ul>
 <li>settings 是project-wide configuration</li>
 <li>options 是package specific configuration</li>
@@ -479,7 +479,7 @@
 <p>也可以在命令中指定</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ conan install .. -o Poco:shared=True -o OpenSSL:shared=True</span><br><span class="line"># or even with wildcards, to apply to many packages</span><br><span class="line">$ conan install .. -o *:shared=True</span><br></pre></td></tr></table></figure>
 
-<h2 id="profiles"><a href="#profiles" class="headerlink" title="profiles"></a>profiles</h2><p><strong>用途</strong><br>profile可用来定制 <code>settings</code>, <code>options</code>, <code>environment variables</code>, 和 <code>build_requires</code>,例如：</p>
+<h3 id="profiles"><a href="#profiles" class="headerlink" title="profiles"></a>profiles</h3><p><strong>用途</strong><br>profile可用来定制 <code>settings</code>, <code>options</code>, <code>environment variables</code>, 和 <code>build_requires</code>,例如：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[settings]</span><br><span class="line">setting=value</span><br><span class="line"></span><br><span class="line">[options]</span><br><span class="line">MyLib:shared=True</span><br><span class="line"></span><br><span class="line">[env]</span><br><span class="line">env_var=value</span><br><span class="line"></span><br><span class="line">[build_requires]</span><br><span class="line">Tool1/0.1@user/channel</span><br><span class="line">Tool2/0.1@user/channel, Tool3/0.1@user/channel</span><br><span class="line">*: Tool4/0.1@user/channel</span><br></pre></td></tr></table></figure>
 
 <p><strong>编辑和定制</strong><br>一般有一个默认的profile ： <code>~/.conan/profiles/default</code><br>也可以通过命令指定自定义的profile文件：</p>
@@ -488,14 +488,14 @@
 <p>而且可以同时指定多个profile文件：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conan install . -pr=./poco_clang_3.5 -pr=my_build_tool1 -pr=my_build_tool2</span><br></pre></td></tr></table></figure>
 
-<h2 id="workflow"><a href="#workflow" class="headerlink" title="workflow"></a>workflow</h2><p>可以通过 <code>--install-folder</code> 或 <code>-if</code> 指定build（放输出的地方）目录。这样不同配置的build之间可以做到隔离。官网给的例子：</p>
+<h3 id="workflow"><a href="#workflow" class="headerlink" title="workflow"></a>workflow</h3><p>可以通过 <code>--install-folder</code> 或 <code>-if</code> 指定build（放输出的地方）目录。这样不同配置的build之间可以做到隔离。官网给的例子：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/memsharded/example-poco-timer</span><br><span class="line">$ conan install example-poco-timer -s build_type=Debug -if example-poco-build/debug</span><br><span class="line">$ conan install example-poco-timer -s build_type=Release -if example-poco-build/release</span><br></pre></td></tr></table></figure>
 
 <p>生成的目录结构</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">example-poco-build</span><br><span class="line">  debug</span><br><span class="line">      conaninfo.txt</span><br><span class="line">      conanbuildinfo.txt</span><br><span class="line">      conanbuildinfo.cmake</span><br><span class="line">      CMakeCache.txt # and other cmake files</span><br><span class="line">  release</span><br><span class="line">      conaninfo.txt</span><br><span class="line">      conanbuildinfo.txt</span><br><span class="line">      conanbuildinfo.cmake</span><br><span class="line">      CMakeCache.txt # and other cmake files</span><br><span class="line">example-poco-timer</span><br><span class="line">    CMakeLists.txt  # If using cmake, but can be Makefile, sln...</span><br><span class="line">    LICENSE</span><br><span class="line">    README.md</span><br><span class="line">    conanfile.txt</span><br><span class="line">    timer.cpp</span><br></pre></td></tr></table></figure>
 
 <p>debug 和 release的输出文件是隔离的，不会形成冲突，另外clean也很方便。</p>
-<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><ol>
+<h2 id="0x2-参考链接"><a href="#0x2-参考链接" class="headerlink" title="0x2 参考链接"></a>0x2 参考链接</h2><ol>
 <li><p><a href="https://docs.conan.io/en/latest/getting_started.html#installing-dependencies" target="_blank" rel="noopener">Conan: Get Started / installing-dependencies</a></p>
 </li>
 <li><p><a href="https://docs.conan.io/en/latest/using_packages.html" target="_blank" rel="noopener">Conan: Using packages</a></p>
@@ -546,7 +546,7 @@
             </p>
             
             <p>
-                <span>发表于2019-07-06 23:04:11，最后修改于2019-07-07 10:57:27。</span>
+                <span>发表于2019-07-06 23:04:11，最后修改于2019-07-20 13:23:03。</span>
             </p>
             <p><span>本站文章欢迎链接分享，禁止全文转载。</span></p>
         </div>
@@ -721,7 +721,7 @@
             <p class="text-gray">
                 <small>
                     <span>发表于2019-07-05，</span>
-                    <span class="hidden-xs">全文1747字，</span>
+                    <span class="hidden-xs">全文1752字，</span>
                     <span>阅读约3分钟</span>
                 </small>
             </p>
@@ -730,7 +730,7 @@
 </div>
         
         <div class="post-preview">
-    <div class="post-img" style="background-image: url('/post/201907/Conan_overview/jfrog_conan_logo.png')"></div>
+    <div class="post-img" style="background-image: url('/img/essay.jpg')"></div>
     <div class="post-info">
         <div class="post-info-center">
             <div class="hidden-xs">
@@ -738,23 +738,19 @@
                 
                 <span>/</span>
                 
-                <a class="text-gray" href="/tags/#C/C++"
-                    title="C/C++">C/C++</a>
-                <span>/</span>
-                
-                <a class="text-gray" href="/tags/#包管理"
-                    title="包管理">包管理</a>
+                <a class="text-gray" href="/tags/#随笔"
+                    title="随笔">随笔</a>
                 <span>/</span>
                 
                 
             </div>
-            <a href="/post/201907/Conan_overview.html" class="title">
-                Conan（一）：初识Conan（C/C++包管理器）
+            <a href="/post/201907/Essay-0701.html" class="title">
+                做一个有趣的人
             </a>
             <p class="text-gray">
                 <small>
-                    <span>发表于2019-07-04，</span>
-                    <span class="hidden-xs">全文1570字，</span>
+                    <span>发表于2019-07-01，</span>
+                    <span class="hidden-xs">全文2043字，</span>
                     <span>阅读约3分钟</span>
                 </small>
             </p>
@@ -763,7 +759,7 @@
 </div>
         
         <div class="post-preview">
-    <div class="post-img" style="background-image: url('/post/link/link.png')"></div>
+    <div class="post-img" style="background-image: url('/post/about/leave_a_msg.gif')"></div>
     <div class="post-info">
         <div class="post-info-center">
             <div class="hidden-xs">
@@ -771,19 +767,19 @@
                 
                 <span>/</span>
                 
-                <a class="text-gray" href="/tags/#友链"
-                    title="友链">友链</a>
+                <a class="text-gray" href="/tags/#关于我"
+                    title="关于我">关于我</a>
                 <span>/</span>
                 
                 
             </div>
-            <a href="/post/link.html" class="title">
-                友情链接
+            <a href="/post/about.html" class="title">
+                关于我
             </a>
             <p class="text-gray">
                 <small>
                     <span>发表于2019-06-18，</span>
-                    <span class="hidden-xs">全文180字，</span>
+                    <span class="hidden-xs">全文572字，</span>
                     <span>阅读约1分钟</span>
                 </small>
             </p>
@@ -814,11 +810,17 @@
 </style>
 <section id="featured-tag">
     
+    <a class="post-tag-item" href="/tags/#友链" title="友链"
+        rel="1">#友链 (1) </a>
+    
     <a class="post-tag-item" href="/tags/#关于我" title="关于我"
         rel="1">#关于我 (1) </a>
     
-    <a class="post-tag-item" href="/tags/#友链" title="友链"
-        rel="1">#友链 (1) </a>
+    <a class="post-tag-item" href="/tags/#C/C++" title="C/C++"
+        rel="3">#C/C++ (3) </a>
+    
+    <a class="post-tag-item" href="/tags/#包管理" title="包管理"
+        rel="3">#包管理 (3) </a>
     
     <a class="post-tag-item" href="/tags/#Android" title="Android"
         rel="1">#Android (1) </a>
@@ -828,12 +830,6 @@
     
     <a class="post-tag-item" href="/tags/#Graphic" title="Graphic"
         rel="1">#Graphic (1) </a>
-    
-    <a class="post-tag-item" href="/tags/#C/C++" title="C/C++"
-        rel="3">#C/C++ (3) </a>
-    
-    <a class="post-tag-item" href="/tags/#包管理" title="包管理"
-        rel="3">#包管理 (3) </a>
     
     <a class="post-tag-item" href="/tags/#随笔" title="随笔"
         rel="1">#随笔 (1) </a>
@@ -875,7 +871,7 @@
 <div id="sidebar-toc">
   <!-- TOC  -->
   
-  <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#0x0-Installing-dependencies"><span class="toc-nav-text">0x0 Installing dependencies</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#在conanfile-txt中定义"><span class="toc-nav-text">在conanfile.txt中定义</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#执行-canan-install"><span class="toc-nav-text">执行 canan install</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#transitive-dependencies的处理"><span class="toc-nav-text">transitive dependencies的处理</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#0x1-更多定制化选择"><span class="toc-nav-text">0x1 更多定制化选择</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#settings-vs-options"><span class="toc-nav-text">settings vs options</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#profiles"><span class="toc-nav-text">profiles</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#workflow"><span class="toc-nav-text">workflow</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#参考链接"><span class="toc-nav-text">参考链接</span></a></li></ol>
+  <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#0x0-Installing-dependencies"><span class="toc-nav-text">0x0 Installing dependencies</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#在conanfile-txt中定义"><span class="toc-nav-text">在conanfile.txt中定义</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#执行-canan-install"><span class="toc-nav-text">执行 canan install</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#transitive-dependencies的处理"><span class="toc-nav-text">transitive dependencies的处理</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#0x1-更多定制化选择"><span class="toc-nav-text">0x1 更多定制化选择</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#settings-vs-options"><span class="toc-nav-text">settings vs options</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#profiles"><span class="toc-nav-text">profiles</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#workflow"><span class="toc-nav-text">workflow</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#0x2-参考链接"><span class="toc-nav-text">0x2 参考链接</span></a></li></ol>
   
 </div>
 
