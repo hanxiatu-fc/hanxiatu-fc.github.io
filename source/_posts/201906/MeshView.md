@@ -11,12 +11,12 @@ categories:
 image: post/201906/MeshView/face_guide.gif
 ---
 
-# 0x0、必备知识
+## 0x0 必备知识
   阅读本文之前，读者最好具备一定的OpenGL的开发背景，并了解OpenGL渲染流程。学习资源可以参考：
   - [Learn OpenGL](https://learnopengl.com/)
   - [OpenGL - Song Ho Ahn](http://www.songho.ca/opengl/index.html)
 
-# 0x1、背景介绍
+## 0x1 背景介绍
   在项目开发中，经常需要开发一些炫酷的3D效果。在Android系统上，通常来说可以通过系统提供的OpenGL的java接口来实现（如GLES20.java）。android系统并提供了GLSurfaceView等一套框架机制，直接帮助开发者将gl环境准备好，开发者剩下的工作就是建立模型（model）、设计着色算法（shader）。但是GLSurfaceView整套机制相对来说还是比较重型（独立的gl渲染线程），功耗也比较大。然而有这么一些非常简单的3D特效，直接嵌入在用户交互界面里，对功耗的要求尽量要低，这个时候采用GLSrufaceView那套机制并不合适。
     
   经过一些调研，发现android原生的接口Canvas.drawBitmapMesh提供的能力可以帮助实现在任意view上的3D效果。本文介绍的内容就是：如果将OpengGL中建模以及渲染流程的知识和接口Canvas.drawBitmapMesh结合起来，并开发一个小的“渲染引擎”，将这种能力基线化。
@@ -26,12 +26,12 @@ image: post/201906/MeshView/face_guide.gif
 ![face_guide](MeshView/face_guide.gif) ![num_picker](MeshView/num_picker.gif)
 
     
-# 0x2、原理介绍
+## 0x2 原理介绍
 
-## Mesh原理
+### Mesh原理
 ![mesh](MeshView/mesh_example.png)
 
-## Canvas.drawBitmapMesh
+### Canvas.drawBitmapMesh
 
 ```
  /**
@@ -75,7 +75,7 @@ public void drawBitmapMesh(@NonNull Bitmap bitmap, int meshWidth, int meshHeight
 - `colorOffset`
 - `paint`
 
-## OpenGl的建模和渲染过程
+### OpenGl的建模和渲染过程
 
 OpenGL中vertex transformation：
 
@@ -91,7 +91,7 @@ OpenGL中vertex transformation：
 - 视窗：即viewport
 
 
-# 0x3、工程实践简介
+## 0x3 工程实践简介
 **OpenGL流程和MeshiView实践对比**
 
 1. OpengGL的流程
@@ -149,7 +149,7 @@ OpenGL中vertex transformation：
 
 *`注：抱歉，完整的工程因个人原因已从github删除。只保留如上最核心的函数。`*
 
-# 0x4、遗留问题
+## 0x4 遗留问题
 
 - 目前只是简单的模拟了OpenGL背后的渲染流程，一些高级特性不具备。例如利用深度信息判断点的前后关系并裁剪的能力不具备。这样就要求使用者精确建模，避免出现有不同深度信息的点，否者绘制顺序无法保证最前面的点被后绘制（看到的现象就是物体背后的信息发生了穿透）
 

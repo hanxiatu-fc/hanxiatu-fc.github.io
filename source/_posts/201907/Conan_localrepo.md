@@ -10,7 +10,7 @@ categories:
 image: post/201907/Conan_localrepo/jfrog_artifactory_cpp.png
 ---
 
-# 0x0 安装本地Artifactory服务
+## 0x0 安装本地Artifactory服务
 
 1. 下载jfrog-artifactory-cpp-ce-6.8.15.zip
 https://bintray.com/jfrog/product/JFrog-Artifactory-Cpp-CE/view
@@ -32,7 +32,7 @@ $ ./artifactory.sh
 
 3. 登陆查看 http://localhost:8081/artifactory
 
-# 0x1 配置
+## 0x1 配置
 
 - 默认账户
 账号：`admin`
@@ -59,7 +59,7 @@ conan user -p <PASSWORD> -r <REMOTE> <USERNAME>
 conan user -p password -r connan_linux admin
 ```
 
-# 0x2 创建demo & 构建 & 上传
+## 0x2 创建demo & 构建 & 上传
 
 - 创建demo&构建
 ```
@@ -82,10 +82,10 @@ conan upload <recipe> -r <REMOTE> --all
 conan upload Hello/0.1@demo/testing --all -r=connan_linux
 ```
 
-## 效果
+### 效果
 ![提交效果](Conan_localrepo/conan_create_upload_result.png)
 
-# 0x3 参考链接
+## 0x3 参考链接
 1. https://jfrog.com/blog/announcing-jfrog-artifactory-community-edition-c-c/
 
 2. https://www.cnblogs.com/rongfengliang/p/9229462.html

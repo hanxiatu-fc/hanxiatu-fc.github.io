@@ -10,16 +10,16 @@ categories:
 image: post/201907/Conan_using_packages/install_flow.png
 ---
 
-# 0x0 Installing dependencies
+## 0x0 Installing dependencies
 
-## 在conanfile.txt中定义
+### 在conanfile.txt中定义
 ```
 # <NAME>/<VERSION>@<USER>/<CHANNEL>
 [requires]
 Poco/1.9.0@pocoproject/stable
 ```
 
-## 执行 canan install
+### 执行 canan install
 ```
 conan install [path of conanfile.txt]
 ```
@@ -54,7 +54,7 @@ conan install [path of conanfile.txt]
 
 ![already_installed](Conan_using_packages/already_installed.png)
 
-## transitive dependencies的处理
+### transitive dependencies的处理
 - demo工程显示依赖Poco
 - Poco依赖OpenSSL
 - OpenSSL依赖zlib
@@ -78,9 +78,9 @@ WARN: Poco/1.9.0@pocoproject/stable requirement OpenSSL/1.0.2o@conan/stable over
 ![transitive dependencies_override](Conan_using_packages/trasitive_dependencies_override.png)
 
 
-# 0x1 更多定制化选择
+## 0x1 更多定制化选择
 
-## settings vs options
+### settings vs options
 
 **二者的区别**
 - settings 是project-wide configuration
@@ -127,7 +127,7 @@ $ conan install .. -o Poco:shared=True -o OpenSSL:shared=True
 # or even with wildcards, to apply to many packages
 $ conan install .. -o *:shared=True
 ```
-## profiles
+### profiles
 
 **用途**
 profile可用来定制 `settings`, `options`, `environment variables`, 和 `build_requires`,例如：
@@ -158,7 +158,7 @@ $ conan install . -pr=debug_shared
 $ conan install . -pr=./poco_clang_3.5 -pr=my_build_tool1 -pr=my_build_tool2
 ```
 
-## workflow
+### workflow
 可以通过 `--install-folder` 或 `-if` 指定build（放输出的地方）目录。这样不同配置的build之间可以做到隔离。官网给的例子：
 ```
 $ git clone https://github.com/memsharded/example-poco-timer
@@ -188,7 +188,7 @@ example-poco-timer
 debug 和 release的输出文件是隔离的，不会形成冲突，另外clean也很方便。
 
 
-# 参考链接
+## 0x2 参考链接
 1. [Conan: Get Started / installing-dependencies](https://docs.conan.io/en/latest/getting_started.html#installing-dependencies)
 
 2. [Conan: Using packages](https://docs.conan.io/en/latest/using_packages.html)

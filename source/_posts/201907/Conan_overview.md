@@ -9,7 +9,7 @@ categories:
 - Conan
 image: post/201907/Conan_overview/jfrog_conan_logo.png
 ---
-# 0x0 Introduction & Install
+## 0x0 Introduction & Install
 Conan is OSS, with an MIT license.
 
 Conan项目有如下几个值得关注的地方：
@@ -33,12 +33,12 @@ Conan项目有如下几个值得关注的地方：
 - os（compiler） + arch
 - Conan可以和任意一种build system配合使用。常用的如Cmake
 
-## 安装
+### 安装
 ```
 pip install conan
 ```
 
-# 0x1 Get Started (以Cmake为例)
+## 0x1 Get Started (以Cmake为例)
 
 1. 准备一个基本的工程
 2. 准备conanfile.txt¶
@@ -57,7 +57,7 @@ pip install conan
 ```
 5. Cmake config & build
 
-# 0x2 参考链接
+## 0x2 参考链接
 
 1. [Conan : Introduction](https://docs.conan.io/en/latest/introduction.html)
 2. [Conan : Install](https://docs.conan.io/en/latest/installation.html)
