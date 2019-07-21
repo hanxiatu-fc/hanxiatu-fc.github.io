@@ -14,17 +14,17 @@
   <!-- if page has tags, then add tags to keyword -->
   
   
-  <meta name="keywords" content="寒夏汢,寒夏汢的博客,寒夏汢的小站,关于我,">
+  <meta name="keywords" content="寒夏汢,寒夏汢的博客,寒夏汢的小站,C/C++,包管理,">
   <!-- page.description has higher priority -->
-  <meta name="description" content="寒夏汢的小站，致力于分享一些技术教程和有趣的技术实践。">
+  <meta name="description" content="Conan">
   <link rel="shortcut icon" href="/img/icon.jpg">
   <title>
     
-    关于我 | 寒夏汢
+    Conan（四）：Creating Packages | 寒夏汢
     
   </title>
 
-  <link rel="canonical" href="/post/about.html">
+  <link rel="canonical" href="/post/201907/Conan_Creating_Packages.html">
 
   <link rel="stylesheet" href="/css/reset.css">
   <link rel="stylesheet" href="/css/layout.css">
@@ -144,7 +144,7 @@
                 
                 
                 
-                <li class="gkt-cate-name float-left false">
+                <li class="gkt-cate-name float-left active">
                     <a ref="nofollow" class="float-left"
                         href="/post/201907/Conan_overview.html">Conan</a>
                 </li>
@@ -330,6 +330,33 @@
 </div></section>
         
         
+        <section>
+            <h3>Conan</h3>
+            <ul>
+                
+                <li>
+                    <a href="/post/201907/Conan_overview.html"
+                        class="">Conan（一）：初识Conan（C/C++包管理器）</a>
+                </li>
+                
+                <li>
+                    <a href="/post/201907/Conan_localrepo.html"
+                        class="">Conan（二）：使用Artifactory搭建私仓</a>
+                </li>
+                
+                <li>
+                    <a href="/post/201907/Conan_using_packages.html"
+                        class="">Conan（三）：Using packages</a>
+                </li>
+                
+                <li>
+                    <a href="/post/201907/Conan_Creating_Packages.html"
+                        class="sidebar-active">Conan（四）：Creating Packages</a>
+                </li>
+                
+            </ul>
+        </section>
+        
         
         <section>
             <h3>最近的文章</h3>
@@ -355,44 +382,248 @@
                     <a href="/post/201907/Essay-0701.html">做一个有趣的人</a>
                 </li>
                 
-                <li>
-                    <a href="/post/201906/MeshView.html">MeshView</a>
-                </li>
-                
-                <li>
-                    <a href="/post/link.html">友情链接</a>
-                </li>
-                
-                <li>
-                    <a href="/post/about.html">关于我</a>
-                </li>
-                
             </ul>
         </section>
     </div>
 </aside>
 <div class="col-xs-12">
     <article class="post-container">
-        <h1> 关于我 </h1>
+        <h1> Conan（四）：Creating Packages </h1>
 
         
 
         
+        <div class="hidden-lg hidden-md series_links">
+            <p> <strong> Conan系列文章链接：</strong></p>
+            <ul>
+                
+                <li>
+                    <a href="/post/201907/Conan_overview.html">Conan（一）：初识Conan（C/C++包管理器）</a>
+                    <span class="post-item-date">(Jul 4, 2019)</span>
+                </li>
+                
+                <li>
+                    <a href="/post/201907/Conan_localrepo.html">Conan（二）：使用Artifactory搭建私仓</a>
+                    <span class="post-item-date">(Jul 5, 2019)</span>
+                </li>
+                
+                <li>
+                    <a href="/post/201907/Conan_using_packages.html">Conan（三）：Using packages</a>
+                    <span class="post-item-date">(Jul 6, 2019)</span>
+                </li>
+                
+                <li>
+                    <a href="/post/201907/Conan_Creating_Packages.html">Conan（四）：Creating Packages</a>
+                    <span class="post-item-date">(Jul 21, 2019)</span>
+                </li>
+                
+            </ul>
+        </div>
         
         
         
-        <h2 id="个人介绍"><a href="#个人介绍" class="headerlink" title="个人介绍"></a>个人介绍</h2><p>博主网名寒夏汢，毕业于中科大计算机系（0711），就职于华为上海研究所。</p>
-<p>对本站的任何问题都可以直接在文章下进行评论。</p>
-<p>也可以通过<code>hanxiatu@gmail.com</code> 或 <code>hanxiatu8@gmail.com</code> 联系我。</p>
-<p>为了节省双方的宝贵时间，作如下几点声明：</p>
+        
+        <h2 id="0x0-Creating-Packaging"><a href="#0x0-Creating-Packaging" class="headerlink" title="0x0 Creating Packaging"></a>0x0 Creating Packaging</h2><h3 id="创建recipe"><a href="#创建recipe" class="headerlink" title="创建recipe"></a>创建recipe</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ conan new xx</span><br><span class="line">$ 编辑 conanfile.py</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://docs.conan.io/en/latest/reference/conanfile.html#conanfile-reference" target="_blank" rel="noopener">conanfile.py 语法</a></p>
+<p><strong>源码和recipe的组织方式</strong><br>||方式1|方式2|<br>|—|—|—|<br>|同仓|<a href="https://docs.conan.io/en/latest/reference/conanfile/attributes.html#exports-sources" target="_blank" rel="noopener">exports_sources</a>=’src/*’ |<a href="https://docs.conan.io/en/latest/reference/conanfile/attributes.html#scm-attribute" target="_blank" rel="noopener">scm attribute</a>|
+|不同仓|<a href="https://docs.conan.io/en/latest/reference/conanfile/methods.html#source" target="_blank" rel="noopener">source()</a>|<a href="https://docs.conan.io/en/latest/reference/conanfile/attributes.html#scm-attribute" target="_blank" rel="noopener">scm attribute</a>|</p>
+<p><strong>Packaging Existing Binaries</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conan export-pkg xx</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建和测试Packages"><a href="#创建和测试Packages" class="headerlink" title="创建和测试Packages"></a>创建和测试Packages</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conan create . demo/testing</span><br></pre></td></tr></table></figure>
+
+<p><strong>如上命令相当于执行（一个完整的测试过程）</strong></p>
 <ul>
-<li>邮件会尽量回复，不能做到有问必答。</li>
-<li>请尽量在邮件中将需求或问题叙述清楚。</li>
+<li>将 <code>conanfile.py</code> 拷贝到本地缓存</li>
+<li>从源码构建并安装包</li>
+<li>进入test_package目录，创建一个临时的构建目录</li>
+<li>执行 <code>conan install ..</code>, 安装 <code>test_package/conanfile.py</code>的依赖（就是我们要测试的包）</li>
+<li>构建和执行,即调用 <code>test_package/conanfile.py</code> 的 <code>build()</code> 和 <code>test()</code> </li>
 </ul>
-<h2 id="版权说明"><a href="#版权说明" class="headerlink" title="版权说明"></a>版权说明</h2><p>若无特别声明，本站文章欢迎链接分享，但禁止全文转载，本站保留一切权利。</p>
-<h2 id="支持本站"><a href="#支持本站" class="headerlink" title="支持本站"></a>支持本站</h2><p>坚持探索、尝试新技术，并作总结并不是一件容易的事情，如能对您有所帮助，我感到非常高兴。</p>
-<p>如果觉得本站文章还不错，欢迎收藏&amp;分享给小伙伴。</p>
-<p>本站使用主题<a href="https://github.com/geektutu/hexo-theme-geektutu" target="_blank" rel="noopener">hexo-theme-geektutu</a>，为<a href="https://geektutu.com/" target="_blank" rel="noopener">极客兔兔</a>开发并开源，请不要吝惜您的Star！</p>
+<p><em>注：这里的测试只是测试package是否被正确创建</em></p>
+<h2 id="0x1-Understanding-Packaging"><a href="#0x1-Understanding-Packaging" class="headerlink" title="0x1 Understanding Packaging"></a>0x1 Understanding Packaging</h2><p><strong>每个recipe在本地缓存定义了5个重要目录</strong></p>
+<ul>
+<li><code>export</code>: 存放recipe的目录.</li>
+<li><code>export_source</code>: 存放由属性<code>exports_sources</code>定义的源码</li>
+<li><code>source</code>: 存放由函数<code>source()</code>定义的源码.</li>
+<li><code>build</code>: 编译目录，为不同的配置创建不同的子目录</li>
+<li><code>package</code>: 存放最终二进制的目录，为不同的配置创建不同的子目录</li>
+</ul>
+<p><strong>执行流程</strong><br><img src="Conan_Creating_Packages/package_create_flow.jpg" alt="package_create_flow"></p>
+<ul>
+<li>将<code>exports_sources</code>，<code>export</code>，<code>source()</code>定义的源码均copy到本地缓存的<code>source/</code>目录下。（注意源码一般只有一套，如果需要为不同的配置定制资源，则应该将源码收集的逻辑从source()函数挪到build()函数）</li>
+<li>根据配置信息（settings、options）生成package-id（SHA-1 hash），创建对应子目录并执行build()函数</li>
+<li>执行package()函数，将<code>build/hashXXX</code>中生成的二进制拷贝到<code>package/hashXXX</code></li>
+<li>执行package_info()函数，收集待使用的信息，如<code>conanbuildinfo.cmake</code></li>
+<li><code>imports</code> feature触发将二进制从本地换成拷贝到使用者的目录 </li>
+</ul>
+<h2 id="0x2-ABI"><a href="#0x2-ABI" class="headerlink" title="0x2 ABI"></a>0x2 ABI</h2><p><strong>One recipe -&gt; N binary packages</strong><br>依赖于如下三个因素：</p>
+<ul>
+<li>settings</li>
+<li>options</li>
+<li>requires 默认遵从<a href="https://semver.org/" target="_blank" rel="noopener">Semantic Versioning</a> 的设定</li>
+</ul>
+<p><strong>self.info.xx</strong><br>通过 <code>self.info.xx</code> 定制settings、options、requires信息，来控制 <code>package_id()</code> 返回的Package ID。例如：</p>
+<ul>
+<li>self.info.settings.xx</li>
+<li>self.info.options.xx</li>
+<li>self.info.requires or self.info.requires[xx],其中可配置的模式如下表</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Modes/Variables</th>
+<th>name</th>
+<th>version</th>
+<th>user</th>
+<th>channel</th>
+<th>package_id</th>
+<th>RREV</th>
+<th>PREV</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>semver_direct_mode()</td>
+<td>Yes</td>
+<td>Yes, only &gt; 1.0.0 (e.g., 1.2.Z+b102)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>semver_mode()</td>
+<td>Yes</td>
+<td>Yes, only &gt; 1.0.0 (e.g., 1.2.Z+b102)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>major_mode()</td>
+<td>Yes</td>
+<td>Yes (e.g., 1.2.Z+b102)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>minor_mode()</td>
+<td>Yes</td>
+<td>Yes (e.g., 1.2.Z+b102)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>patch_mode()</td>
+<td>Yes</td>
+<td>Yes (e.g., 1.2.3+b102)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>base_mode()</td>
+<td>Yes</td>
+<td>Yes (e.g., 1.7+b102)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>full_version_mode()</td>
+<td>Yes</td>
+<td>Yes (e.g., 1.2.3+b102)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>full_recipe_mode()</td>
+<td>Yes</td>
+<td>Yes (e.g., 1.2.3+b102)</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>full_package_mode()</td>
+<td>Yes</td>
+<td>Yes (e.g., 1.2.3+b102)</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>unrelated_mode()</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>recipe_revision_mode()</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>package_revision_mode()</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>## 0x3 参考链接</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1. <a href="https://docs.conan.io/en/latest/creating_packages.html" target="_blank" rel="noopener">Conan:Creating Packages</a></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
 
         <!-- 文章末尾的提示 start -->
         
@@ -418,22 +649,35 @@
             <p>
                 <span>标签: </span>
                 
-                <a href="/tags/#关于我">
-                    <code style="color: #333" key="关于我" class="post-label">#关于我</code>
+                <a href="/tags/#C/C++">
+                    <code style="color: #333" key="C/C++" class="post-label">#C/C++</code>
+                </a>
+                
+                <a href="/tags/#包管理">
+                    <code style="color: #333" key="包管理" class="post-label">#包管理</code>
                 </a>
                 
             </p>
             
             <p>
-                <span>发表于2019-06-18 11:18:24，最后修改于2019-07-07 11:36:38。</span>
+                <span>专题: </span>
+                
+                <a href="/series/#Conan">
+                    <code style="color: #c7254e" key="Conan" class="post-label">Conan</code>
+                </a>
+                
+            </p>
+            
+            <p>
+                <span>发表于2019-07-21 23:27:39，最后修改于2019-07-21 23:27:47。</span>
             </p>
             <p><span>本站文章欢迎链接分享，禁止全文转载。</span></p>
         </div>
         <hr />
         <p name="pagination">
     
+    <a class="float-left" href="/post/201907/Conan_using_packages.html">« 上一篇 Conan（三）：Using packages</a>
     
-    <a class="float-right" href="/post/link.html">下一篇 » 友情链接</a>
     
 </p>
     </article>
@@ -576,7 +820,7 @@
         <h3>推荐阅读</h3>
         
         <div class="post-preview">
-    <div class="post-img" style="background-image: url('/post/201907/Conan_using_packages/install_flow.png')"></div>
+    <div class="post-img" style="background-image: url('/img/essay.jpg')"></div>
     <div class="post-info">
         <div class="post-info-center">
             <div class="hidden-xs">
@@ -584,57 +828,20 @@
                 
                 <span>/</span>
                 
-                <a class="text-gray" href="/tags/#C/C++"
-                    title="C/C++">C/C++</a>
-                <span>/</span>
-                
-                <a class="text-gray" href="/tags/#包管理"
-                    title="包管理">包管理</a>
+                <a class="text-gray" href="/tags/#随笔"
+                    title="随笔">随笔</a>
                 <span>/</span>
                 
                 
             </div>
-            <a href="/post/201907/Conan_Creating_Packages.html" class="title">
-                Conan（四）：Creating Packages
+            <a href="/post/201907/Essay-0701.html" class="title">
+                做一个有趣的人
             </a>
             <p class="text-gray">
                 <small>
-                    <span>发表于2019-07-21，</span>
-                    <span class="hidden-xs">全文3134字，</span>
-                    <span>阅读约5分钟</span>
-                </small>
-            </p>
-        </div>
-    </div>
-</div>
-        
-        <div class="post-preview">
-    <div class="post-img" style="background-image: url('/post/201907/Conan_using_packages/install_flow.png')"></div>
-    <div class="post-info">
-        <div class="post-info-center">
-            <div class="hidden-xs">
-                
-                
-                <span>/</span>
-                
-                <a class="text-gray" href="/tags/#C/C++"
-                    title="C/C++">C/C++</a>
-                <span>/</span>
-                
-                <a class="text-gray" href="/tags/#包管理"
-                    title="包管理">包管理</a>
-                <span>/</span>
-                
-                
-            </div>
-            <a href="/post/201907/Conan_using_packages.html" class="title">
-                Conan（三）：Using packages
-            </a>
-            <p class="text-gray">
-                <small>
-                    <span>发表于2019-07-06，</span>
-                    <span class="hidden-xs">全文4396字，</span>
-                    <span>阅读约7分钟</span>
+                    <span>发表于2019-07-01，</span>
+                    <span class="hidden-xs">全文2043字，</span>
+                    <span>阅读约3分钟</span>
                 </small>
             </p>
         </div>
@@ -672,6 +879,35 @@
                     <span>发表于2019-06-19，</span>
                     <span class="hidden-xs">全文5637字，</span>
                     <span>阅读约9分钟</span>
+                </small>
+            </p>
+        </div>
+    </div>
+</div>
+        
+        <div class="post-preview">
+    <div class="post-img" style="background-image: url('/post/link/link.png')"></div>
+    <div class="post-info">
+        <div class="post-info-center">
+            <div class="hidden-xs">
+                
+                
+                <span>/</span>
+                
+                <a class="text-gray" href="/tags/#友链"
+                    title="友链">友链</a>
+                <span>/</span>
+                
+                
+            </div>
+            <a href="/post/link.html" class="title">
+                友情链接
+            </a>
+            <p class="text-gray">
+                <small>
+                    <span>发表于2019-06-18，</span>
+                    <span class="hidden-xs">全文180字，</span>
+                    <span>阅读约1分钟</span>
                 </small>
             </p>
         </div>
@@ -762,7 +998,7 @@
 <div id="sidebar-toc">
   <!-- TOC  -->
   
-  <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#个人介绍"><span class="toc-nav-text">个人介绍</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#版权说明"><span class="toc-nav-text">版权说明</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#支持本站"><span class="toc-nav-text">支持本站</span></a></li></ol>
+  <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#0x0-Creating-Packaging"><span class="toc-nav-text">0x0 Creating Packaging</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#创建recipe"><span class="toc-nav-text">创建recipe</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#创建和测试Packages"><span class="toc-nav-text">创建和测试Packages</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#0x1-Understanding-Packaging"><span class="toc-nav-text">0x1 Understanding Packaging</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#0x2-ABI"><span class="toc-nav-text">0x2 ABI</span></a></li></ol>
   
 </div>
 

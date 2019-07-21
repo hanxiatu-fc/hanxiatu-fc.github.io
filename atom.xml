@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hanxiatu.com/"/>
-  <updated>2019-07-20T05:23:03.236Z</updated>
+  <updated>2019-07-21T15:27:47.353Z</updated>
   <id>https://hanxiatu.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Conan（四）：Creating Packages</title>
+    <link href="https://hanxiatu.com/post/201907/Conan_Creating_Packages.html"/>
+    <id>https://hanxiatu.com/post/201907/Conan_Creating_Packages.html</id>
+    <published>2019-07-21T15:27:39.000Z</published>
+    <updated>2019-07-21T15:27:47.353Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="0x0-Creating-Packaging"><a href="#0x0-Creating-Packaging" class="headerlink" title="0x0 Creating Packaging"></a>0x0 Creating Packaging</h2><h3 id="创建recipe"><a href="#创建recipe" class="headerlink" title="创建recipe"></a>创建recipe</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ conan new xx</span><br><span class="line">$ 编辑 conanfile.py</span><br></pre></td></tr></table></figure><p><a href="https://docs.conan.io/en/latest/reference/conanfile.html#conanfile-reference" target="_blank" rel="noopener">conanfile.py 语法</a></p><p><strong>源码和recipe的组织方式</strong><br>||方式1|方式2|<br>|—|—|—|<br>|同仓|<a href="https://docs.conan.io/en/latest/reference/conanfile/attributes.html#exports-sources" target="_blank" rel="noopener">exports_sources</a>=’src/*’ |<a href="https://docs.conan.io/en/latest/reference/conanfile/attributes.html#scm-attribute" target="_blank" rel="noopener">scm attribute</a>||不同仓|<a href="https://docs.conan.io/en/latest/reference/conanfile/methods.html#source" target="_blank" rel="noopener">source()</a>|<a href="https://docs.conan.io/en/latest/reference/conanfile/attributes.html#scm-attribute" target="_blank" rel="noopener">scm attribute</a>|</p><p><strong>Packaging Existing Binaries</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conan export-pkg xx</span><br></pre></td></tr></table></figure><h3 id="创建和测试Packages"><a href="#创建和测试Packages" class="headerlink" title="创建和测试Packages"></a>创建和测试Packages</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conan create . demo/testing</span><br></pre></td></tr></table></figure><p><strong>如上命令相当于执行（一个完整的测试过程）</strong></p><ul><li>将 <code>conanfile.py</code> 拷贝到本地缓存</li><li>从源码构建并安装包</li><li>进入test_package目录，创建一个临时的构建目录</li><li>执行 <code>conan install ..</code>, 安装 <code>test_package/conanfile.py</code>的依赖（就是我们要测试的包）</li><li>构建和执行,即调用 <code>test_package/conanfile.py</code> 的 <code>build()</code> 和 <code>test()</code> </li></ul><p><em>注：这里的测试只是测试package是否被正确创建</em></p><h2 id="0x1-Understanding-Packaging"><a href="#0x1-Understanding-Packaging" class="headerlink" title="0x1 Understanding Packaging"></a>0x1 Understanding Packaging</h2><p><strong>每个recipe在本地缓存定义了5个重要目录</strong></p><ul><li><code>export</code>: 存放recipe的目录.</li><li><code>export_source</code>: 存放由属性<code>exports_sources</code>定义的源码</li><li><code>source</code>: 存放由函数<code>source()</code>定义的源码.</li><li><code>build</code>: 编译目录，为不同的配置创建不同的子目录</li><li><code>package</code>: 存放最终二进制的目录，为不同的配置创建不同的子目录</li></ul><p><strong>执行流程</strong><br><img src="Conan_Creating_Packages/package_create_flow.jpg" alt="package_create_flow"></p><ul><li>将<code>exports_sources</code>，<code>export</code>，<code>source()</code>定义的源码均copy到本地缓存的<code>source/</code>目录下。（注意源码一般只有一套，如果需要为不同的配置定制资源，则应该将源码收集的逻辑从source()函数挪到build()函数）</li><li>根据配置信息（settings、options）生成package-id（SHA-1 hash），创建对应子目录并执行build()函数</li><li>执行package()函数，将<code>build/hashXXX</code>中生成的二进制拷贝到<code>package/hashXXX</code></li><li>执行package_info()函数，收集待使用的信息，如<code>conanbuildinfo.cmake</code></li><li><code>imports</code> feature触发将二进制从本地换成拷贝到使用者的目录 </li></ul><h2 id="0x2-ABI"><a href="#0x2-ABI" class="headerlink" title="0x2 ABI"></a>0x2 ABI</h2><p><strong>One recipe -&gt; N binary packages</strong><br>依赖于如下三个因素：</p><ul><li>settings</li><li>options</li><li>requires 默认遵从<a href="https://semver.org/" target="_blank" rel="noopener">Semantic Versioning</a> 的设定</li></ul><p><strong>self.info.xx</strong><br>通过 <code>self.info.xx</code> 定制settings、options、requires信息，来控制 <code>package_id()</code> 返回的Package ID。例如：</p><ul><li>self.info.settings.xx</li><li>self.info.options.xx</li><li>self.info.requires or self.info.requires[xx],其中可配置的模式如下表</li></ul><table><thead><tr><th>Modes/Variables</th><th>name</th><th>version</th><th>user</th><th>channel</th><th>package_id</th><th>RREV</th><th>PREV</th></tr></thead><tbody><tr><td>semver_direct_mode()</td><td>Yes</td><td>Yes, only &gt; 1.0.0 (e.g., 1.2.Z+b102)</td><td>No</td><td>No</td><td>No</td><td>No</td><td>No</td></tr><tr><td>semver_mode()</td><td>Yes</td><td>Yes, only &gt; 1.0.0 (e.g., 1.2.Z+b102)</td><td>No</td><td>No</td><td>No</td><td>No</td><td>No</td></tr><tr><td>major_mode()</td><td>Yes</td><td>Yes (e.g., 1.2.Z+b102)</td><td>No</td><td>No</td><td>No</td><td>No</td><td>No</td></tr><tr><td>minor_mode()</td><td>Yes</td><td>Yes (e.g., 1.2.Z+b102)</td><td>No</td><td>No</td><td>No</td><td>No</td><td>No</td></tr><tr><td>patch_mode()</td><td>Yes</td><td>Yes (e.g., 1.2.3+b102)</td><td>No</td><td>No</td><td>No</td><td>No</td><td>No</td></tr><tr><td>base_mode()</td><td>Yes</td><td>Yes (e.g., 1.7+b102)</td><td>No</td><td>No</td><td>No</td><td>No</td><td>No</td></tr><tr><td>full_version_mode()</td><td>Yes</td><td>Yes (e.g., 1.2.3+b102)</td><td>No</td><td>No</td><td>No</td><td>No</td><td>No</td></tr><tr><td>full_recipe_mode()</td><td>Yes</td><td>Yes (e.g., 1.2.3+b102)</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td><td>No</td></tr><tr><td>full_package_mode()</td><td>Yes</td><td>Yes (e.g., 1.2.3+b102)</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr><tr><td>unrelated_mode()</td><td>No</td><td>No</td><td>No</td><td>No</td><td>No</td><td>No</td><td>No</td></tr><tr><td>recipe_revision_mode()</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td></tr><tr><td>package_revision_mode()</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr><tr><td>## 0x3 参考链接</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>1. <a href="https://docs.conan.io/en/latest/creating_packages.html" target="_blank" rel="noopener">Conan:Creating Packages</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table>]]></content>
+    
+    <summary type="html">
+    
+      Conan
+    
+    </summary>
+    
+      <category term="Conan" scheme="https://hanxiatu.com/categories/Conan/"/>
+    
+    
+      <category term="C/C++" scheme="https://hanxiatu.com/tags/C-C/"/>
+    
+      <category term="包管理" scheme="https://hanxiatu.com/tags/%E5%8C%85%E7%AE%A1%E7%90%86/"/>
+    
+  </entry>
   
   <entry>
     <title>Conan（三）：Using packages</title>
