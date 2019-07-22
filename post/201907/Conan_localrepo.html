@@ -25,15 +25,12 @@
   </title>
 
   <link rel="canonical" href="/post/201907/Conan_localrepo.html">
-
   <link rel="stylesheet" href="/css/reset.css">
   <link rel="stylesheet" href="/css/layout.css">
-  <link rel="stylesheet" href="/css/geektutu.css">
   <link rel="stylesheet" href="/css/markdown.css">
-
   <!-- Pygments Highlight CSS -->
   <link rel="stylesheet" href="/css/highlight.css">
-  <!-- <link rel="stylesheet" href="/css/toc.css"> -->
+  <link rel="stylesheet" href="/css/geektutu.css">
   <!-- global function -->
   <script>
     window.globalAddScript = function (url, onload, onerror) {
@@ -137,16 +134,16 @@
                 
                 
                 
-                <li class="gkt-cate-name float-left active">
+                <li class="gkt-cate-name float-left false">
                     <a ref="nofollow" class="float-left"
-                        href="/post/201907/Conan_overview.html">Conan</a>
+                        href="/post/201906/MeshView.html">Graphic</a>
                 </li>
                 
                 
                 
-                <li class="gkt-cate-name float-left false">
+                <li class="gkt-cate-name float-left active">
                     <a ref="nofollow" class="float-left"
-                        href="/post/201906/MeshView.html">Graphic</a>
+                        href="/post/201907/Conan_overview.html">Conan</a>
                 </li>
                 
             </ul>
@@ -183,17 +180,19 @@
 
     .sidebar-left {
         border-right: 1px solid #eaecef;
-        margin-right: 20px;
+        margin-right: 10px;
+        padding-left: 5px;
     }
 
     .sidebar-left,
     .sidebar-left>div {
-        width: 270px;
+        width: 280px;
     }
 
     .sidebar-right,
     .sidebar-right>div {
         width: 250px;
+        margin-left: 10px;
     }
 
     .sidebar-wrapper li {
@@ -657,7 +656,7 @@
         <h3>推荐阅读</h3>
         
         <div class="post-preview">
-    <div class="post-img" style="background-image: url('/post/201907/Conan_Creating_Packages/package_create_flow.jpg')"></div>
+    <div class="post-img" style="background-image: url('/post/201907/Conan_using_packages/install_flow.png')"></div>
     <div class="post-info">
         <div class="post-info-center">
             <div class="hidden-xs">
@@ -675,14 +674,14 @@
                 
                 
             </div>
-            <a href="/post/201907/Conan_Creating_Packages.html" class="title">
-                Conan（四）：Creating Packages
+            <a href="/post/201907/Conan_using_packages.html" class="title">
+                Conan（三）：Using packages
             </a>
             <p class="text-gray">
                 <small>
-                    <span>发表于2019-07-21，</span>
-                    <span class="hidden-xs">全文3144字，</span>
-                    <span>阅读约5分钟</span>
+                    <span>发表于2019-07-06，</span>
+                    <span class="hidden-xs">全文4396字，</span>
+                    <span>阅读约7分钟</span>
                 </small>
             </p>
         </div>
@@ -690,7 +689,7 @@
 </div>
         
         <div class="post-preview">
-    <div class="post-img" style="background-image: url('/post/201907/Conan_overview/jfrog_conan_logo.png')"></div>
+    <div class="post-img" style="background-image: url('/post/201907/Conan_localrepo/jfrog_artifactory_cpp.png')"></div>
     <div class="post-info">
         <div class="post-info-center">
             <div class="hidden-xs">
@@ -708,13 +707,13 @@
                 
                 
             </div>
-            <a href="/post/201907/Conan_overview.html" class="title">
-                Conan（一）：初识Conan（C/C++包管理器）
+            <a href="/post/201907/Conan_localrepo.html" class="title">
+                Conan（二）：使用Artifactory搭建私仓
             </a>
             <p class="text-gray">
                 <small>
-                    <span>发表于2019-07-04，</span>
-                    <span class="hidden-xs">全文1574字，</span>
+                    <span>发表于2019-07-05，</span>
+                    <span class="hidden-xs">全文1752字，</span>
                     <span>阅读约3分钟</span>
                 </small>
             </p>
@@ -774,17 +773,11 @@
 </style>
 <section id="featured-tag">
     
-    <a class="post-tag-item" href="/tags/#关于我" title="关于我"
-        rel="1">#关于我 (1) </a>
-    
     <a class="post-tag-item" href="/tags/#友链" title="友链"
         rel="1">#友链 (1) </a>
     
-    <a class="post-tag-item" href="/tags/#C/C++" title="C/C++"
-        rel="4">#C/C++ (4) </a>
-    
-    <a class="post-tag-item" href="/tags/#包管理" title="包管理"
-        rel="4">#包管理 (4) </a>
+    <a class="post-tag-item" href="/tags/#关于我" title="关于我"
+        rel="1">#关于我 (1) </a>
     
     <a class="post-tag-item" href="/tags/#Android" title="Android"
         rel="1">#Android (1) </a>
@@ -794,6 +787,12 @@
     
     <a class="post-tag-item" href="/tags/#Graphic" title="Graphic"
         rel="1">#Graphic (1) </a>
+    
+    <a class="post-tag-item" href="/tags/#C/C++" title="C/C++"
+        rel="4">#C/C++ (4) </a>
+    
+    <a class="post-tag-item" href="/tags/#包管理" title="包管理"
+        rel="4">#包管理 (4) </a>
     
 </section>
     </div>
@@ -1009,7 +1008,7 @@
         color: #108ee9;
     }
 </style>
-<footer class="text-center">
+<footer class="text-center col-xs-12">
     <p>
         <small>© 2019 - 寒夏汢 - </small>
         <small>
