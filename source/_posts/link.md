@@ -11,4 +11,5 @@ image: post/link/link.png
 
 | 名称  | 描述 |
 |---| ---|
-| [极客兔兔](https://geektutu.com) | 本站使用主题作者 |
+| [极客兔兔](https://geektutu.com) | geek，本站所使用的主题的作者 |
+| [hutusi](https://hutusi.com) | 文艺青年和技术男的完美结合 |
